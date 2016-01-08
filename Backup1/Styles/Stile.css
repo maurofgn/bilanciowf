@@ -1,0 +1,150 @@
+﻿body {
+    font-size:8pt;
+    font-family:Verdana, Arial, Helvetica, sans-serif;
+    text-align:center;
+    margin:0px 0px 0px 0px;
+}
+
+.page
+{
+    /* width:auto !important;   /* per i browser moderni */
+    width:800px;                /* per IE5.x e IE6 */
+    min-width:800px;            /* per i browser moderni */
+    height:auto !important;     /* per i browser moderni */
+    height:600px;               /* per IE5.x e IE6 */
+    min-height:600px;           /* per i browser moderni */
+    background-color:#FFFFFF;
+    margin:3px auto 0px auto;
+    border:1px solid #496077;
+}
+
+.MainContent
+{
+    height:auto !important;     /* per i browser moderni */
+    height:500px;               /* per IE5.x e IE6 */
+    min-height:500px;           /* per i browser moderni */
+    text-align:center;
+    padding:5px 5px 5px 5px;
+}
+
+input { /* Stili comuni agli elementi del form */    
+    font-size:8pt;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+} 
+
+
+a:link, a:visited
+{
+    color:#0000FF;
+    font-weight:bold;
+}
+
+a:hover
+{
+    color:#000000;
+    text-decoration:none;
+}
+
+a:active
+{
+    color:#000000;
+}
+
+.failureNotification
+{
+    font-size:10pt;
+    color:Red;
+    font-weight:bold;
+}
+
+.bold {
+    font-weight:bold;
+}
+
+.MainContent
+{
+    text-align:center;
+    padding:0px 5px 5px 5px;
+}
+
+table.tblStandard
+{
+    padding:0px; 
+    margin:0px; 
+    border-collapse:collapse; 
+    border-spacing:0px;
+    border-color:Black;
+    width: 100%;
+}
+
+table.tblStandardNoWidth
+{
+    padding:0px; 
+    margin:0px; 
+    border-collapse:collapse; 
+    border-spacing:0px;
+    border-color:Black;
+}
+
+td.tdStandard 
+{
+    background-color:#FFFFFF;
+    color:#000000;
+    border-style:solid;
+    border-width:1px;
+    border-color:#000000;
+}
+
+td.tdAttivo
+{
+    background-color:#FFFFFF;
+    color:#009933;
+    border-style:solid;
+    border-width:1px;
+    border-color:#000000;
+    font-weight:bold;
+}
+
+td.tdErroreBanale
+{
+    background-color:#FFFFFF;
+    color:#000099;
+    border-style:solid;
+    border-width:1px;
+    border-color:#000000;
+}
+
+td.tdErrore 
+{
+    background-color:#FFFFFF;
+    color:#FF0000;
+    border-style:solid;
+    border-width:1px;
+    border-color:#000000;
+}
+
+td.tdGrigio
+{
+    background-color:#FFFFFF;
+    color:#C0C0C0;
+    border-style:solid;
+    border-width:1px;
+    border-color:#000000;
+}
+
+td.tdIntestazione 
+{
+    background-color:#808080;
+    color:#FFFFFF;
+    font-weight:bold;
+}
+
+th.thIntestazione 
+{
+    background-color:#808080;
+    color:#FFFFFF;
+    border-style:solid;
+    border-width:1px;
+    border-color:#000000;
+    font-weight:bold;
+}

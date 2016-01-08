@@ -46,11 +46,12 @@ Partial Class SearchParameter
         '
         'ButtonCancel
         '
+        Me.ButtonCancel.CausesValidation = False
         Me.ButtonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel
         Me.ButtonCancel.Location = New System.Drawing.Point(117, 54)
         Me.ButtonCancel.Name = "ButtonCancel"
         Me.ButtonCancel.Size = New System.Drawing.Size(75, 23)
-        Me.ButtonCancel.TabIndex = 2
+        Me.ButtonCancel.TabIndex = 3
         Me.ButtonCancel.Text = "Annulla"
         Me.ButtonCancel.UseVisualStyleBackColor = True
         '
@@ -59,13 +60,13 @@ Partial Class SearchParameter
         Me.ButtonOK.Location = New System.Drawing.Point(12, 54)
         Me.ButtonOK.Name = "ButtonOK"
         Me.ButtonOK.Size = New System.Drawing.Size(75, 23)
-        Me.ButtonOK.TabIndex = 3
+        Me.ButtonOK.TabIndex = 2
         Me.ButtonOK.Text = "OK"
         Me.ButtonOK.UseVisualStyleBackColor = True
         '
         'SearchParameter
         '
-        Me.AcceptButton = Me.ButtonCancel
+        Me.AcceptButton = Me.ButtonOK
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.CancelButton = Me.ButtonCancel

@@ -31,12 +31,16 @@ Public Class DocumentTot
                 End If
             Next
 
-            _stateDoc = StateDoc.Ok _
-                Or (IIf(total().CompareTo(doc.amount) = 0, 0, StateDoc.TotRowNotEqTotHead)) _
-                Or (IIf(balanced(), 0, StateDoc.Unbalanced)) _
-                Or (IIf(doc.amount.CompareTo(Decimal.Zero) > 0, 0, StateDoc.InvalidTotal)) _
-                Or (IIf(Not IsNothing(doc.dateReg), 0, StateDoc.NotValidDataReg)) _
-                Or (IIf(IsNothing(doc.dateDoc) OrElse doc.dateReg.CompareTo(doc.dateDoc) >= 0, 0, StateDoc.DataRegBeforeDoc))
+            If (doc.ID > 0) Then
+                _stateDoc = StateDoc.Ok _
+                    Or (IIf(total().CompareTo(doc.amount) = 0, 0, StateDoc.TotRowNotEqTotHead)) _
+                    Or (IIf(balanced(), 0, StateDoc.Unbalanced)) _
+                    Or (IIf(doc.amount.CompareTo(Decimal.Zero) > 0, 0, StateDoc.InvalidTotal)) _
+                    Or (IIf(Not IsNothing(doc.dateReg), 0, StateDoc.NotValidDataReg)) _
+                    Or (IIf(IsNothing(doc.dateDoc) OrElse doc.dateReg.CompareTo(doc.dateDoc) >= 0, 0, StateDoc.DataRegBeforeDoc))
+            Else
+                _stateDoc = StateDoc.Ok
+            End If
 
         End If
 
@@ -81,7 +85,7 @@ Public Class DocumentTot
                 Return ""
             End If
 
-            Return String.Join(", ", getErrors().Values.ToArray)
+            Return String.Join(Environment.NewLine, getErrors().Values.ToArray)
 
         End Get
     End Property
@@ -101,9 +105,10 @@ Public Class DocumentTot
 
                 Select Case value And _stateDoc
                     Case StateDoc.TotRowNotEqTotHead
-                        retValue.Add(value.ToString(), "Totale da righe diverso dal totale di testata")
+                        '(total().CompareTo(doc.amount
+                        retValue.Add(value.ToString(), "Totale da righe (" & total() & ") diverso dal totale di testata (" & doc.amount & ")")
                     Case StateDoc.Unbalanced
-                        retValue.Add(value.ToString(), "Documento non quadrato")
+                        retValue.Add(value.ToString(), "Documento non quadrato (Dare=" & _amountDebit & " Avere=" & _amountCredit & ")")
                     Case StateDoc.InvalidTotal
                         retValue.Add(value.ToString(), "Totale documento minore o uguale a zero")
                     Case StateDoc.NotValidDataReg

@@ -1,7 +1,4 @@
-﻿'Imports System.ComponentModel.DataAnnotations
-'Imports System.ComponentModel.DataAnnotations.Schema
-'Imports Bilancio.DAL
-
+﻿
 Namespace Models
 
     Public Enum ReportFormatType
@@ -18,36 +15,19 @@ Namespace Models
     End Enum
 
     Public Class Report
+        Inherits CodeName
         Implements EntityBase
-
-        Public Property ID As Integer
-
-        '<Required>
-        '<StringLength(20, MinimumLength:=1, ErrorMessage:="La lunghezza massima é 20 caratteri.")>
-        '<Display(Name:="Codice")>
-        '<Index("codeIndex", IsUnique:=True)>
-        Public Property Code As String
-
-        '<Required>
-        '<StringLength(60, MinimumLength:=3, ErrorMessage:="La lunghezza massima é 60 caratteri.")>
-        '<Display(Name:="Descrizione")>
-        Public Property Name As String
-
-        '<Timestamp>
-        'Public Property RowVersion As Byte()
-
-        Public Property Active As Boolean = True
 
         Public Property ModelName As String
 
 
         '<DisplayFormat(NullDisplayText:="Non definito")>
-        Public Property FormatType As ReportFormatType?
+        Public Property FormatType As ReportFormatType 'Integer?
 
         Public Property OutFileName As String
 
         '<Display(Name:="Azione")>
-        Public Property ActioneName As String
+        Public Property ActionName As String
         '<Display(Name:="Controllo")>
         Public Property ControllerName As String
 

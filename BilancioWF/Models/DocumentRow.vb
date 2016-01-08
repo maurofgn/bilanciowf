@@ -93,8 +93,8 @@ Namespace Models
                 Return -1
             End If
 
-
             Return 0
+
         End Function
 
         Function dare() As Decimal

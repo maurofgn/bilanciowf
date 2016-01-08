@@ -1,4 +1,6 @@
-﻿'Imports Bilancio.Models
+﻿Imports System.Text
+
+'Imports Bilancio.Models
 'Imports System.ComponentModel.DataAnnotations
 
 Namespace ViewModels
@@ -21,6 +23,18 @@ Namespace ViewModels
         Public Property creditDebit As CreditDebit
 
         Public Property headFoot As HeadFood
+
+        Public Overrides Function toString() As String
+
+            Dim cd As String = ""
+
+            If (Not IsNothing(creditDebit)) Then
+                cd = creditDebit.toString
+            End If
+
+            Return String.Format("{0} {1} {2}", Code, Name, cd)
+
+        End Function
 
     End Class
 

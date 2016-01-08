@@ -2,10 +2,12 @@
 Imports System.Reflection
 Imports System.Data.Common
 Imports BilancioWF.Models
+Imports System.Data.SqlClient
 
 Public Module Module1
 
     Public MAX_ELEMENTS_ON_WHERE_IN As Integer = 300
+    Public MAX_RECORDS_TO_SEARCH As Integer = 100
 
     Public Enum DareAvere As Integer
         Dare = 1
@@ -17,6 +19,8 @@ Public Module Module1
     Private Const dbName = "bilancio"
     Private Const userName = "bilancio"
     Private Const psw = "balance"
+
+    Dim tablesFk As Dictionary(Of String, List(Of Foreignkey))
 
     Public Function getConnectionString()
         'Return getCommon() & "Integrated Security=False;User Id=" & userName & ";Password=" & psw & ";"
@@ -59,6 +63,15 @@ Public Module Module1
     '    Return retValue
 
     'End Function
+
+    Public Function getSqlConnection() As SqlConnection
+
+
+        Dim connectionString As String = "Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=Bilancio;Data Source=localhost"
+
+
+        Return New SqlConnection(connectionString)
+    End Function
 
     Public Function ConnectionClose(ByRef connection As OleDbConnection) As Boolean
         ConnectionClose = False
@@ -116,13 +129,38 @@ Public Module Module1
     Public Sub PopulateCombo(ByRef cbo As Windows.Forms.ComboBox, _
                              ByVal list As IEnumerable, _
                              ByVal strValueMember As String, _
-                             ByVal strDisplayMember As String)
+                             Optional ByVal strDisplayMember As String = Nothing)
 
-        With cbo
-            .DataSource = list
-            .DisplayMember = strDisplayMember
-            .ValueMember = strValueMember
-        End With
+        If (IsNothing(strDisplayMember)) Then
+            strDisplayMember = strValueMember
+        End If
+
+        Try
+            With cbo
+                .DataSource = list
+                .DisplayMember = strDisplayMember
+                .ValueMember = strValueMember
+            End With
+        Catch ex As Exception
+            Trace.WriteLine(ex.Message)
+
+        End Try
+
+    End Sub
+
+    Public Sub PopulateCombo(ByRef cbo As Windows.Forms.ComboBox, ByVal list As IEnumerable, Optional ByVal noEmpty As Boolean = True)
+
+        cbo.Items.Clear()
+
+        For Each e In list
+            cbo.Items.Add(e)
+            
+        Next
+
+        If (noEmpty And cbo.Items.Count > 0) Then
+            cbo.SelectedIndex = 0
+        End If
+
     End Sub
 
 
@@ -153,39 +191,6 @@ Public Module Module1
 
     End Interface
 
-
-    'Public Sub CaricaDaDB(dr As DataRow, ByRef oClasse As clsGenericaListViewItem)
-    '    Dim objType As Type = Me.GetType()
-
-    '    For Each col As DataColumn In dr.Table.Columns
-    '        Dim appo As PropertyInfo = objType.GetProperty(col.ColumnName, BindingFlags.Public Or BindingFlags.Instance)
-    '        If Not appo Is Nothing Then
-    '            If dr(col.ColumnName) Is DBNull.Value Then
-    '                appo.SetValue(oClasse, Nothing, Nothing)
-    '            Else
-    '                appo.SetValue(oClasse, dr(col.ColumnName), Nothing)
-    '            End If
-    '        End If
-    '    Next
-    'End Sub
-
-    'Public Sub CaricaDaDB(dr As DataRow, ByRef oClasse As Object)
-    '    Dim objType As Type = oClasse.GetType()
-
-    '    For Each col As DataColumn In dr.Table.Columns
-    '        Dim appo As PropertyInfo = objType.GetProperty(col.ColumnName, BindingFlags.Public Or BindingFlags.Instance)
-    '        If Not appo Is Nothing Then
-    '            If dr(col.ColumnName) Is DBNull.Value Then
-    '                appo.SetValue(oClasse, Nothing, Nothing)
-    '            Else
-    '                appo.SetValue(oClasse, dr(col.ColumnName), Nothing)
-    '            End If
-    '        End If
-    '    Next
-    'End Sub
-
-
-
     '@param connection connessione
     '@param sql da eseguire
     '@param objType da restituire caricato
@@ -193,13 +198,13 @@ Public Module Module1
     '@param groupPos indice da aggiungere al nome del tipo per prendere i dati dal recordset. Se la select ha lo stesso nome per più colonne, il recordset aggiunge un progressivo al nome
     '   in modo da renderlo univoco, se si vuole far riferimento ad un gruppo di colonne successivo al primo (0 based) va specificato questo parametro diverso da 0
     '@return oggetto di tipo objType caricato usando la prima riga (0 base) del datarow
-    Public Function CaricaDaDB(ByRef connection As DbConnection, sql As String, ByVal objType As Type, Optional trans As Common.DbTransaction = Nothing, Optional groupPos As Integer = 0) As Object
+    Public Function CaricaDaDB(ByRef connection As DbConnection, sql As String, ByVal objType As Type, Optional trans As Common.DbTransaction = Nothing) As Object
 
         Dim instance As Object = Nothing
 
         Dim dt As DataTable = GetDataTable(connection, sql, "", Nothing, trans)
 
-        Return CaricaDaDB(dt.Rows, objType, 0, groupPos)
+        Return CaricaDaDB(dt.Rows, objType, 0)
 
     End Function
 
@@ -209,89 +214,96 @@ Public Module Module1
     '@param groupPos indice da aggiungere al nome del tipo per prendere i dati dal recordset. Se la select ha lo stesso nome per più colonne, il recordset aggiunge un progressivo al nome
     '   in modo da renderlo univoco, se si vuole far riferimento ad un gruppo di colonne successivo al primo (0 based) va specificato questo parametro diverso da 0
     '@return oggetto di tipo objType caricato usando l'iesimo datarow
-    Public Function CaricaDaDB(ByRef drCollection As DataRowCollection, ByVal objType As Type, Optional rowPos As Integer = 0, Optional groupPos As Integer = 0) As Object
+    Public Function CaricaDaDB(ByRef drCollection As DataRowCollection, ByVal objType As Type, Optional rowPos As Integer = 0) As Object
 
         If (rowPos < 0 Or IsNothing(drCollection) Or drCollection.Count = 0 Or drCollection.Count <= rowPos) Then
             Return Nothing
         End If
 
-        Return CaricaDaDB(drCollection(rowPos), objType, groupPos)
+        Return CaricaDaDB(drCollection(rowPos), objType)
 
     End Function
 
     '@param datarow
     '@param objType da restituire caricato
-    '@param groupPos indice da aggiungere al nome del tipo per prendere i dati dal recordset. Se la select ha lo stesso nome per più colonne, il recordset aggiunge un progressivo al nome
-    '   in modo da renderlo univoco, se si vuole far riferimento ad un gruppo di colonne successivo al primo (0 based) va specificato questo parametro diverso da 0
+    '   in modo da renderlo univoco, se si vuole far riferimento ad un gruppo di colonne successivo al primo (0 based) va specificato questo parametro > 0.
+    '   Attenzione ai nomi di colonna, colonne con lo stesso nome hanno un progressivo come postfisso e la ricerca viene fatta dal progressivo massimo (groupPos) a scendere fino allo 0 (senza postfisso)
+    '   casi con tre (o più) tabelle dove una colonna è presente su una sola tabella (nome colonna univoco) o su tutte le tabelle (nome colonna con postfisso per tutte le tabelle) è ok, 
+    '   ma colonne non univoche e non presenti su tutte le tabelle assumono un progressivo minore del max, per cui quando viene fatta la ricerca del gruppo 1 (seconda tabella) questa acquisisce
+    '   le colonne della terza tabella che non sono presenti nella prima.
+    '   esempio: la colonna code è presente nella seconda e terza tabella, ma non nella prima, per cui la select resituirà code e code1, in fase di ricerca per il secondo gruppo code1 viene trovato
     '@return oggetto di tipo objType caricato usando il datarow
-    Public Function CaricaDaDB(ByRef dr As DataRow, ByVal objType As Type, Optional groupPos As Integer = 0) As Object
+    Public Function CaricaDaDB(ByRef dataRow As DataRow, ByVal objType As Type) As Object
 
-        If (IsNothing(dr)) Then
+        If (IsNothing(objType)) Then
             Return Nothing
         End If
 
-        'Trace.WriteLine(dr("ID1"))
-        'For Each dc As DataColumn In dr.Table.Columns
-        '    Trace.WriteLine(dc)
-        'Next
+        Dim lis = New List(Of Type)(1)
+        lis.Add(objType)
 
+        Dim retLis As List(Of Object) = CaricaDaDB(dataRow, lis)
 
-        Dim instance = getInstance(objType)
+        If (IsNothing(retLis) OrElse retLis.Count = 0) Then
+            Return Nothing
+        End If
 
-        Dim pojoCols As IEnumerable(Of System.Reflection.PropertyInfo) = objType.GetProperties(BindingFlags.Public Or BindingFlags.Instance)
+        Return retLis(0)
 
-        For Each prop As PropertyInfo In pojoCols
+    End Function
 
-            Dim propertyName As String = prop.Name & IIf(groupPos > 0, groupPos, "")
+    '@param datarow
+    '@param objType lista di tipi da caricare
+    '@return istanze di objType con valori ottenuti da datarow
+    Public Function CaricaDaDB(ByRef dataRow As DataRow, ByVal objType As List(Of Type)) As List(Of Object)
 
-            If (Not dr.Table.Columns.Contains(propertyName)) Then
-                Continue For
-            End If
+        If (IsNothing(dataRow) OrElse IsNothing(objType) OrElse objType.Count = 0) Then
+            Return Nothing
+        End If
 
-            Dim v As Object = dr(prop.Name)
+        Dim maxPrg = 0
+        Dim retValue = New List(Of Object)(objType.Count)
+        Dim colsNameUsed = New HashSet(Of String)
 
-            If IsNothing(v) Or v Is DBNull.Value Then
-                prop.SetValue(instance, Nothing, Nothing)
-            Else
-                prop.SetValue(instance, v, Nothing)
-            End If
+        For Each oneType In objType
 
-            'For Each col As DataColumn In dr.Table.Columns
-            '    If (col.ColumnName.Equals(prop.Name)) Then
+            Dim instance = getInstance(oneType)
+            retValue.Add(instance)
+            Dim pojoCols As IEnumerable(Of System.Reflection.PropertyInfo) = oneType.GetProperties(BindingFlags.Public Or BindingFlags.Instance)
 
-            '        If dr(col.ColumnName) Is DBNull.Value Then
-            '            prop.SetValue(instance, Nothing, Nothing)
-            '        Else
-            '            prop.SetValue(instance, dr(col.ColumnName), Nothing)
-            '        End If
-            '    End If
+            For Each prop As PropertyInfo In pojoCols
 
-            '    Exit For
+                For count As Integer = 0 To maxPrg
+                    Dim propertyName As String = prop.Name.ToUpper & IIf(count > 0, count, "")
+                    If (colsNameUsed.Contains(propertyName)) Then
+                        Continue For    'colonna esistente ma già usata
+                    End If
 
-            'Next
+                    If (dataRow.Table.Columns.Contains(propertyName)) Then
 
+                        Dim value As Object = dataRow(propertyName)
 
+                        If (IsNothing(value) Or value Is DBNull.Value) Then
+                            prop.SetValue(instance, Nothing, Nothing)
+                        Else
+                            prop.SetValue(instance, value, Nothing)
+                        End If
+
+                        colsNameUsed.Add(propertyName)
+
+                    End If
+                    Exit For
+                Next
+            Next
+            maxPrg += 1
         Next
 
-
-
-        'For Each col As DataColumn In dr.Table.Columns
-        '    Dim appo As PropertyInfo = objType.GetProperty(col.ColumnName, BindingFlags.Public Or BindingFlags.Instance)
-        '    If Not appo Is Nothing Then
-        '        If dr(col.ColumnName) Is DBNull.Value Then
-        '            appo.SetValue(instance, Nothing, Nothing)
-        '        Else
-        '            appo.SetValue(instance, dr(col.ColumnName), Nothing)
-        '        End If
-        '    End If
-        'Next
-
-        Return instance
+        Return retValue
 
     End Function
 
     'Ritorna un'istance dell'oggetto passato a condizione che abbia il costruttore vuoto
-    Private Function getInstance(ByVal t As System.Type) As Object
+    Public Function getInstance(ByVal t As System.Type) As Object
         Return t.GetConstructor(New System.Type() {}).Invoke(New Object() {})
     End Function
 
@@ -333,10 +345,92 @@ Public Module Module1
         End Try
     End Function
 
+    '@return una lista di Foreignkey per la tabella
+    '@param tableName tabella per cui si vuole l'elenco delle foreign key
+    Public Function getForeignkey(tableName As String) As List(Of Foreignkey)
+
+        Dim fk As List(Of Foreignkey) = Nothing
+
+        If (IsNothing(tablesFk)) Then
+            tablesFk = New Dictionary(Of String, List(Of Foreignkey))()
+        ElseIf (tablesFk.ContainsKey(tableName)) Then
+            fk = tablesFk.Item(tableName)
+            If (Not IsNothing(fk)) Then
+                Return fk
+            End If
+        End If
+
+
+        fk = New List(Of Foreignkey)
+        tablesFk.Add(tableName, fk)
+
+        Using connection = getConnectionOpened()
+            Try
+                Dim cmd As OleDbCommand = New OleDbCommand("sp_fkeys", connection)
+                cmd.CommandType = CommandType.StoredProcedure
+                cmd.Parameters.Add("@TableName", OleDbType.VarChar).Value = tableName
+
+                Using reader = cmd.ExecuteReader()
+                    While reader.Read()
+                        fk.Add(New Foreignkey() With {.columnName = reader.GetString(7), .tableName = reader.GetString(6)})
+                    End While
+                End Using
+
+            Catch ex As Exception
+                Trace.WriteLine(ex.Message)
+            End Try
+
+        End Using
+
+        Return fk
+
+    End Function
+
+    Public Function parseDecimal(value As String, Optional defaultUseMin As Boolean = False, Optional defaultUseMax As Boolean = False) As Decimal
+
+        If (String.IsNullOrEmpty(value)) Then
+            Return IIf(defaultUseMax, Decimal.MaxValue, IIf(defaultUseMin, Decimal.MinValue, Decimal.Zero))
+        End If
+
+        Try
+            parseDecimal = Convert.ToDecimal(value)
+        Catch ex As Exception
+            parseDecimal = Decimal.Zero
+        End Try
+
+    End Function
+
+    Public Function parseInteger(value As String, Optional defaultUseMin As Boolean = False, Optional defaultUseMax As Boolean = False) As Integer
+
+        If (String.IsNullOrEmpty(value)) Then
+            Return IIf(defaultUseMax, Integer.MaxValue, IIf(defaultUseMin, Integer.MinValue, 0))
+        End If
+
+        Try
+            parseInteger = Convert.ToInt32(value)
+        Catch ex As Exception
+            parseInteger = 0
+        End Try
+
+    End Function
+
     Public Interface Traverse
         Function oneSon(son As AccountCee, level As Integer) As Boolean
         Function oneParent(son As AccountCee, level As Integer) As Boolean
 
     End Interface
+
+    Class Foreignkey
+        Property tableName As String
+        Property columnName As String
+
+        Function getSelect(keyVal As Integer) As String
+            Return "SELECT d.* FROM " & tableName & " d where d." & columnName & " = " & keyVal
+        End Function
+        Function getExists(keyVal As Integer) As String
+            Return "case when exists (" & getSelect(keyVal) & ") then 1 else 0 end > 0"
+        End Function
+
+    End Class
 
 End Module

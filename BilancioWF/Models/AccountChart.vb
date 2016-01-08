@@ -3,28 +3,11 @@
 
 Namespace Models
     Public Class AccountChart
-
-        Public Property ID As Integer
-
-        '<Required>
-        '<StringLength(20, MinimumLength:=1, ErrorMessage:="{0} deve essere di almeno {2} caratteri e massimo {1}.")>
-        '<Display(Name:="Codice")>
-        '<Index("codeIndex", IsUnique:=True)>
-        Public Property Code As String
-
-        '<Required>
-        '<StringLength(60, MinimumLength:=3, ErrorMessage:="{0} deve essere di almeno {2} carattere e massimo {1}.")>
-        '<Display(Name:="Descrizione")>
-        Public Property Name As String
-
-        '<Timestamp>
-        'Public Property RowVersion As Byte()
+        Inherits CodeName
 
         '<Display(Name:="Segno")>
         '<ScaffoldColumn(False)>
         Public Property Debit As DareAvere
-
-        Public Property Active As Boolean = True
 
         '<Display(Name:="Riferimento CEE")>
         '<ForeignKey("AccountCee")>
@@ -51,12 +34,21 @@ Namespace Models
 
             _creditDebit = New CreditDebit(year, Debit)
 
-            DocumentRows.Where(Function(a) a.Document.dateReg.Year = year Or a.Document.dateReg.Year = year - 1).ToList().ForEach(Sub(a) _creditDebit.addRow(a))
+            If (Not IsNothing(DocumentRows)) Then
+                DocumentRows.Where(Function(a) a.Document.dateReg.Year = year Or a.Document.dateReg.Year = year - 1).ToList().ForEach(Sub(a) _creditDebit.addRow(a))
+            End If
 
             Return _creditDebit
 
         End Function
 
+        Sub addDocumentRow(detail As DocumentRow)
+            If (IsNothing(DocumentRows)) Then
+                DocumentRows = New List(Of DocumentRow)
+            End If
+            DocumentRows.Add(detail)
+            detail.AccountChart = Me
+        End Sub
 
     End Class
 

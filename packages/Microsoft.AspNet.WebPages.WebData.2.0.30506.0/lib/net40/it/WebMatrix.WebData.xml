@@ -1,0 +1,791 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <assembly>
+    <name>WebMatrix.WebData</name>
+  </assembly>
+  <members>
+    <member name="T:WebMatrix.WebData.ExtendedMembershipProvider">
+      <summary>Rappresenta una classe astratta utilizzata per estendere il sistema di appartenenze fornito dalla classe <see cref="T:System.Web.Security.MembershipProvider" />.</summary>
+    </member>
+    <member name="M:WebMatrix.WebData.ExtendedMembershipProvider.#ctor">
+      <summary>Quando è sottoposto a override in una classe derivata, crea una nuova istanza della classe <see cref="T:WebMatrix.WebData.ExtendedMembershipProvider" />.</summary>
+    </member>
+    <member name="M:WebMatrix.WebData.ExtendedMembershipProvider.ConfirmAccount(System.String)">
+      <summary>Attiva un account di appartenenza in sospeso.</summary>
+      <returns>true se l'account è confermato. In caso contrario, false.</returns>
+      <param name="accountConfirmationToken">Token di conferma da passare al provider di autenticazione.</param>
+    </member>
+    <member name="M:WebMatrix.WebData.ExtendedMembershipProvider.ConfirmAccount(System.String,System.String)">
+      <summary>Attiva un account di appartenenza in sospeso per l'utente specificato.</summary>
+      <returns>true se l'account è confermato. In caso contrario, false.</returns>
+      <param name="userName">Nome utente.</param>
+      <param name="accountConfirmationToken">Token di conferma da passare al provider di autenticazione.</param>
+    </member>
+    <member name="M:WebMatrix.WebData.ExtendedMembershipProvider.CreateAccount(System.String,System.String)">
+      <summary>Crea un nuovo account utente utilizzando il nome utente e la password specificati.</summary>
+      <returns>Token che è possibile inviare all'utente per confermare l'account.</returns>
+      <param name="userName">Nome utente.</param>
+      <param name="password">Password.</param>
+    </member>
+    <member name="M:WebMatrix.WebData.ExtendedMembershipProvider.CreateAccount(System.String,System.String,System.Boolean)">
+      <summary>Quando è sottoposto a override in una classe derivata, crea un nuovo account utente utilizzando il nome utente e la password specificati. Facoltativamente, richiede di confermare il nuovo account prima di poterlo utilizzare.</summary>
+      <returns>Token che è possibile inviare all'utente per confermare l'account.</returns>
+      <param name="userName">Nome utente.</param>
+      <param name="password">Password.</param>
+      <param name="requireConfirmationToken">(Facoltativo) true per specificare che è necessario confermare l'account. In caso contrario, false. Il valore predefinito è false.</param>
+    </member>
+    <member name="M:WebMatrix.WebData.ExtendedMembershipProvider.CreateOrUpdateOAuthAccount(System.String,System.String,System.String)">
+      <summary>Quando è sottoposto a override in una classe derivata, crea un nuovo account di appartenenza OAuth oppure aggiorna un account di appartenenza OAuth esistente.</summary>
+      <param name="provider">Provider OAuth o OpenID.</param>
+      <param name="providerUserId">ID utente del provider OAuth o OpenID. Non corrisponde all'ID utente dell'account utente.</param>
+      <param name="userName">Nome utente.</param>
+    </member>
+    <member name="M:WebMatrix.WebData.ExtendedMembershipProvider.CreateUserAndAccount(System.String,System.String)">
+      <summary>Crea un nuovo profilo utente e un nuovo account di appartenenza.</summary>
+      <returns>Token che è possibile inviare all'utente per confermare l'account utente.</returns>
+      <param name="userName">Nome utente.</param>
+      <param name="password">Password.</param>
+    </member>
+    <member name="M:WebMatrix.WebData.ExtendedMembershipProvider.CreateUserAndAccount(System.String,System.String,System.Boolean)">
+      <summary>Crea un nuovo profilo utente e un nuovo account di appartenenza.</summary>
+      <returns>Token che è possibile inviare all'utente per confermare l'account utente.</returns>
+      <param name="userName">Nome utente.</param>
+      <param name="password">Password.</param>
+      <param name="requireConfirmation">(Facoltativo) true per specificare che è necessario confermare l'account utente. In caso contrario, false. Il valore predefinito è false.</param>
+    </member>
+    <member name="M:WebMatrix.WebData.ExtendedMembershipProvider.CreateUserAndAccount(System.String,System.String,System.Boolean,System.Collections.Generic.IDictionary{System.String,System.Object})">
+      <summary>Quando è sottoposto a override in una classe derivata, crea un nuovo profilo utente e un nuovo account di appartenenza.</summary>
+      <returns>Token che è possibile inviare all'utente per confermare l'account utente.</returns>
+      <param name="userName">Nome utente.</param>
+      <param name="password">Password.</param>
+      <param name="requireConfirmation">(Facoltativo) true per specificare che è necessario confermare l'account utente. In caso contrario, false. Il valore predefinito è false.</param>
+      <param name="values">(Facoltativo) Dizionario contenente gli attributi utente aggiuntivi da memorizzare nel profilo utente. Il valore predefinito è null.</param>
+    </member>
+    <member name="M:WebMatrix.WebData.ExtendedMembershipProvider.CreateUserAndAccount(System.String,System.String,System.Collections.Generic.IDictionary{System.String,System.Object})">
+      <summary>Quando è sottoposto a override in una classe derivata, crea un nuovo profilo utente e un nuovo account di appartenenza.</summary>
+      <returns>Token che è possibile inviare all'utente per confermare l'account utente.</returns>
+      <param name="userName">Nome utente.</param>
+      <param name="password">Password.</param>
+      <param name="values">(Facoltativo) Dizionario contenente gli attributi utente aggiuntivi da memorizzare nel profilo utente. Il valore predefinito è null.</param>
+    </member>
+    <member name="M:WebMatrix.WebData.ExtendedMembershipProvider.DeleteAccount(System.String)">
+      <summary>Quando è sottoposto a override in una classe derivata, elimina l'account di appartenenza specificato.</summary>
+      <returns>true se l'account utente è stato eliminato. In caso contrario, false.</returns>
+      <param name="userName">Nome utente.</param>
+    </member>
+    <member name="M:WebMatrix.WebData.ExtendedMembershipProvider.DeleteOAuthAccount(System.String,System.String)">
+      <summary>Quando è sottoposto a override in una classe derivata, elimina l'account OAuth o OpenID con il nome e l'ID utente del provider specificati.</summary>
+      <param name="provider">Nome del provider OAuth o OpenID.</param>
+      <param name="providerUserId">ID utente del provider OAuth o OpenID. Non corrisponde all'ID utente dell'account utente.</param>
+    </member>
+    <member name="M:WebMatrix.WebData.ExtendedMembershipProvider.DeleteOAuthToken(System.String)"></member>
+    <member name="M:WebMatrix.WebData.ExtendedMembershipProvider.GeneratePasswordResetToken(System.String)">
+      <summary>Genera un token di reimpostazione della password che è possibile inviare a un utente tramite posta elettronica.</summary>
+      <returns>Token da inviare all'utente.</returns>
+      <param name="userName">Nome utente.</param>
+    </member>
+    <member name="M:WebMatrix.WebData.ExtendedMembershipProvider.GeneratePasswordResetToken(System.String,System.Int32)">
+      <summary>Quando è sottoposto a override in una classe derivata, genera un token di reimpostazione della password che è possibile inviare a un utente tramite posta elettronica.</summary>
+      <returns>Token da inviare all'utente.</returns>
+      <param name="userName">Nome utente.</param>
+      <param name="tokenExpirationInMinutesFromNow">(Facoltativo) Intervallo di tempo, in minuti, fino alla scadenza del token di reimpostazione della password. Il valore predefinito è 1440 (24 ore).</param>
+    </member>
+    <member name="M:WebMatrix.WebData.ExtendedMembershipProvider.GetAccountsForUser(System.String)">
+      <summary>Quando è sottoposto a override in una classe derivata, restituisce tutti gli account di appartenenza OAuth associati al nome utente specificato.</summary>
+      <returns>Elenco di tutti gli account di appartenenza OAuth associati al nome utente specificato.</returns>
+      <param name="userName">Nome utente.</param>
+    </member>
+    <member name="M:WebMatrix.WebData.ExtendedMembershipProvider.GetCreateDate(System.String)">
+      <summary>Quando è sottoposto a override in una classe derivata, restituisce la data e l'ora di creazione dell'account utente specificato.</summary>
+      <returns>Data e ora di creazione dell'account oppure <see cref="F:System.DateTime.MinValue" /> se tale data non è disponibile.</returns>
+      <param name="userName">Nome utente dell'account.</param>
+    </member>
+    <member name="M:WebMatrix.WebData.ExtendedMembershipProvider.GetLastPasswordFailureDate(System.String)">
+      <summary>Quando è sottoposto a override in una classe derivata, restituisce la data e l'ora dell'ultima volta in cui è stata immessa una password errata per l'account utente specificato.</summary>
+      <returns>Data e ora dell'ultima volta in cui è stata immessa una password errata per l'account utente corrente oppure <see cref="F:System.DateTime.MinValue" /> se per tale account utente non è stata immessa una password errata.</returns>
+      <param name="userName">Nome utente dell'account.</param>
+    </member>
+    <member name="M:WebMatrix.WebData.ExtendedMembershipProvider.GetOAuthTokenSecret(System.String)"></member>
+    <member name="M:WebMatrix.WebData.ExtendedMembershipProvider.GetPasswordChangedDate(System.String)">
+      <summary>Quando è sottoposto a override in una classe derivata, restituisce la data e l'ora dell'ultima modifica apportata alla password per l'account di appartenenza specificato.</summary>
+      <returns>Data e ora dell'ultima modifica della password per l'account di appartenenza oppure <see cref="F:System.DateTime.MinValue" /> se la password non è mai stata modificata per l'account utente corrente.</returns>
+      <param name="userName">Nome utente dell'account.</param>
+    </member>
+    <member name="M:WebMatrix.WebData.ExtendedMembershipProvider.GetPasswordFailuresSinceLastSuccess(System.String)">
+      <summary>Quando è sottoposto a override in una classe derivata,restituisce il numero di volte in cui è stata immessa una password errata per l'account utente specificato a partire dall'ultimo accesso corretto o dalla creazione dell'account utente.</summary>
+      <returns>Numero di tentativi di immissione della password non riusciti per l'account utente specificato.</returns>
+      <param name="userName">Nome utente dell'account.</param>
+    </member>
+    <member name="M:WebMatrix.WebData.ExtendedMembershipProvider.GetUserIdFromOAuth(System.String,System.String)">
+      <summary>Quando è sottoposto a override in una classe derivata, restituisce l'ID utente per il provider OAuth o OpenID specificato.</summary>
+      <param name="provider">Nome del provider OAuth o OpenID.</param>
+      <param name="providerUserId">ID utente del provider OAuth o OpenID. Non corrisponde all'ID utente dell'account utente.</param>
+    </member>
+    <member name="M:WebMatrix.WebData.ExtendedMembershipProvider.GetUserIdFromPasswordResetToken(System.String)">
+      <summary>Quando è sottoposto a override in una classe derivata, restituisce un ID per un utente basato su un token di reimpostazione della password.</summary>
+      <returns>ID utente.</returns>
+      <param name="token">Token di reimpostazione della password.</param>
+    </member>
+    <member name="M:WebMatrix.WebData.ExtendedMembershipProvider.GetUserNameFromId(System.Int32)">
+      <summary>Restituisce il nome utente associato all'ID utente specificato.</summary>
+      <returns>Nome utente.</returns>
+      <param name="userId">ID utente per il quale ottenere il nome.</param>
+    </member>
+    <member name="M:WebMatrix.WebData.ExtendedMembershipProvider.HasLocalAccount(System.Int32)"></member>
+    <member name="M:WebMatrix.WebData.ExtendedMembershipProvider.IsConfirmed(System.String)">
+      <summary>Quando è sottoposto a override in una classe derivata, restituisce un valore che indica se l'account utente è stato confermato dal provider.</summary>
+      <returns>true se l'utente è confermato. In caso contrario, false.</returns>
+      <param name="userName">Nome utente.</param>
+    </member>
+    <member name="M:WebMatrix.WebData.ExtendedMembershipProvider.ReplaceOAuthRequestTokenWithAccessToken(System.String,System.String,System.String)"></member>
+    <member name="M:WebMatrix.WebData.ExtendedMembershipProvider.ResetPasswordWithToken(System.String,System.String)">
+      <summary>Quando è sottoposto a override in una classe derivata, reimposta una password dopo avere verificato la validità del token di reimpostazione della password specificato.</summary>
+      <returns>true se la password è stata modificata. In caso contrario, false.</returns>
+      <param name="token">Token di reimpostazione della password.</param>
+      <param name="newPassword">Nuova password.</param>
+    </member>
+    <member name="M:WebMatrix.WebData.ExtendedMembershipProvider.StoreOAuthRequestToken(System.String,System.String)"></member>
+    <member name="T:WebMatrix.WebData.FormsAuthenticationSettings">
+      <summary>Definisce i nomi delle chiavi che sostituiscono le impostazioni predefinite nella sezione &lt;appSettings&gt; del file Web.config.</summary>
+    </member>
+    <member name="F:WebMatrix.WebData.FormsAuthenticationSettings.DefaultLoginUrl">
+      <summary>Chiave per accedere all'URL di accesso predefinito.</summary>
+    </member>
+    <member name="F:WebMatrix.WebData.FormsAuthenticationSettings.LoginUrlKey">
+      <summary>Chiave per accedere alla chiave URL di accesso.</summary>
+    </member>
+    <member name="F:WebMatrix.WebData.FormsAuthenticationSettings.PreserveLoginUrlKey">
+      <summary>Chiave per accedere all'impostazione che consente di mantenere il termine "login" anziché sostituirlo con il termine "logon".</summary>
+    </member>
+    <member name="T:WebMatrix.WebData.OAuthAccountData">
+      <summary>Rappresenta un account OAuth o OpenID.</summary>
+    </member>
+    <member name="M:WebMatrix.WebData.OAuthAccountData.#ctor(System.String,System.String)">
+      <summary>Inizializza una nuova istanza della classe <see cref="T:WebMatrix.WebData.OAuthAccountData" /> tramite il provider OAuth o OpenID e l'ID utente del provider specificati.</summary>
+      <param name="provider">Provider.</param>
+      <param name="providerUserId">ID utente del provider.</param>
+    </member>
+    <member name="P:WebMatrix.WebData.OAuthAccountData.Provider">
+      <summary>Ottiene il nome del provider OAuth o OpenID.</summary>
+      <returns>Nome del provider.</returns>
+    </member>
+    <member name="P:WebMatrix.WebData.OAuthAccountData.ProviderUserId">
+      <summary>Ottiene l'ID utente del provider OAuth o OpenID.</summary>
+      <returns>ID utente del provider.</returns>
+    </member>
+    <member name="T:WebMatrix.WebData.PreApplicationStartCode">
+      <summary>Fornisce un punto di registrazione per il codice di preavvio dell'applicazione di appartenenza semplice.</summary>
+    </member>
+    <member name="M:WebMatrix.WebData.PreApplicationStartCode.Start">
+      <summary>Registra il codice di preavvio dell'applicazione di appartenenza semplice.</summary>
+    </member>
+    <member name="T:WebMatrix.WebData.SimpleMembershipProvider">
+      <summary>Fornisce supporto per le attività relative all'appartenenza a un sito Web, ad esempio la creazione e l'eliminazione di account e la gestione delle password.</summary>
+    </member>
+    <member name="M:WebMatrix.WebData.SimpleMembershipProvider.#ctor">
+      <summary>Inizializza una nuova istanza della classe <see cref="T:WebMatrix.WebData.SimpleMembershipProvider" />.</summary>
+    </member>
+    <member name="M:WebMatrix.WebData.SimpleMembershipProvider.#ctor(System.Web.Security.MembershipProvider)">
+      <summary>Inizializza una nuova istanza della classe <see cref="T:WebMatrix.WebData.SimpleMembershipProvider" /> utilizzando il provider di appartenenze specificato.</summary>
+      <param name="previousProvider">Provider di appartenenze da utilizzare.</param>
+    </member>
+    <member name="P:WebMatrix.WebData.SimpleMembershipProvider.ApplicationName">
+      <summary>Ottiene o imposta il nome dell'applicazione.</summary>
+      <returns>Nome dell'applicazione.</returns>
+    </member>
+    <member name="M:WebMatrix.WebData.SimpleMembershipProvider.ChangePassword(System.String,System.String,System.String)">
+      <summary>Modifica la password per l'account di appartenenza specificato.</summary>
+      <returns>true se la password è stata modificata. In caso contrario, false.</returns>
+      <param name="username">Nome utente.</param>
+      <param name="oldPassword">Password precedente.</param>
+      <param name="newPassword">Nuova password.</param>
+    </member>
+    <member name="M:WebMatrix.WebData.SimpleMembershipProvider.ChangePasswordQuestionAndAnswer(System.String,System.String,System.String,System.String)">
+      <summary>Modifica la domanda e la risposta segrete relative all'account specificato.</summary>
+      <returns>true se la domanda e la risposta segrete sono state modificate. In caso contrario, false.</returns>
+      <param name="username">Nome utente.</param>
+      <param name="password">Nuova password.</param>
+      <param name="newPasswordQuestion">Domanda di sicurezza alla quale l'utente deve rispondere per modificare la password.</param>
+      <param name="newPasswordAnswer">Risposta alla domanda di sicurezza.</param>
+    </member>
+    <member name="M:WebMatrix.WebData.SimpleMembershipProvider.ConfirmAccount(System.String)">
+      <summary>Attiva un account di appartenenza in sospeso.</summary>
+      <returns>true se l'account utente è confermato. In caso contrario, false.</returns>
+      <param name="accountConfirmationToken">Token di conferma da passare al provider di autenticazione.</param>
+      <exception cref="T:System.InvalidOperationException">La classe <see cref="T:WebMatrix.WebData.SimpleMembershipProvider" /> non è stata inizializzata tramite una chiamata al metodo <see cref="Overload:WebMatrix.WebData.WebSecurity.InitializeDatabaseConnection" />.</exception>
+    </member>
+    <member name="M:WebMatrix.WebData.SimpleMembershipProvider.ConfirmAccount(System.String,System.String)">
+      <returns>Restituisce <see cref="T:System.Boolean" />.</returns>
+    </member>
+    <member name="M:WebMatrix.WebData.SimpleMembershipProvider.CreateAccount(System.String,System.String,System.Boolean)">
+      <summary>Crea un nuovo account utente utilizzando il nome utente e la password specificati.</summary>
+      <returns>Token che è possibile inviare all'utente per confermare l'account utente.</returns>
+      <param name="userName">Nome utente.</param>
+      <param name="password">Password.</param>
+      <param name="requireConfirmationToken">(Facoltativo) true per specificare che è necessario confermare l'account utente. In caso contrario, false. Il valore predefinito è false.</param>
+      <exception cref="T:System.Web.Security.MembershipCreateUserException">
+        <paramref name="username" /> è vuoto.oppure<paramref name="username" /> possiede già un account utente.oppure<paramref name="password" /> è vuoto.oppure<paramref name="password" /> supera la lunghezza di 128 caratteri.oppureUn record utente corrispondente a <paramref name="username" /> non è presente nella tabella <see cref="P:WebMatrix.WebData.SimpleMembershipProvider.UserTableName" /> (tabella dei profili utente).oppureOperazione di database non riuscita.</exception>
+      <exception cref="T:System.InvalidOperationException">La classe <see cref="T:WebMatrix.WebData.SimpleMembershipProvider" /> non è stata inizializzata tramite una chiamata al metodo <see cref="Overload:WebMatrix.WebData.WebSecurity.InitializeDatabaseConnection" />.</exception>
+    </member>
+    <member name="M:WebMatrix.WebData.SimpleMembershipProvider.CreateOrUpdateOAuthAccount(System.String,System.String,System.String)">
+      <summary>Crea un nuovo account di appartenenza OAuth oppure aggiorna un account di appartenenza OAuth esistente.</summary>
+      <param name="provider">Provider OAuth o OpenID.</param>
+      <param name="providerUserId">ID utente del provider OAuth o OpenID. Non corrisponde all'ID utente dell'account utente.</param>
+      <param name="userName">Nome utente.</param>
+      <exception cref="T:System.InvalidOperationException">La classe <see cref="T:WebMatrix.WebData.SimpleMembershipProvider" /> non è stata inizializzata tramite una chiamata al metodo <see cref="Overload:WebMatrix.WebData.WebSecurity.InitializeDatabaseConnection" />.</exception>
+      <exception cref="T:System.Web.Security.MembershipCreateUserException">
+        <paramref name="username" /> è vuoto.oppureUn record utente corrispondente a <paramref name="username" /> non è presente nella tabella <see cref="P:WebMatrix.WebData.SimpleMembershipProvider.UserTableName" /> (tabella dei profili utente).oppureOperazione di database non riuscita.</exception>
+    </member>
+    <member name="M:WebMatrix.WebData.SimpleMembershipProvider.CreateUser(System.String,System.String,System.String,System.String,System.String,System.Boolean,System.Object,System.Web.Security.MembershipCreateStatus@)">
+      <summary>Aggiunge l'utente specificato al database delle appartenenze.</summary>
+      <returns>Oggetto <see cref="T:System.Web.Security.MembershipUser" /> popolato con le informazioni relative al nuovo account utente creato.</returns>
+      <param name="username">Nome utente per il nuovo account utente.</param>
+      <param name="password">Password per il nuovo account utente.</param>
+      <param name="email">Indirizzo di posta elettronica per il nuovo account utente.</param>
+      <param name="passwordQuestion">Domanda di sicurezza per il nuovo account utente.</param>
+      <param name="passwordAnswer">Risposta alla domanda di sicurezza per il nuovo account utente.</param>
+      <param name="isApproved">true per indicare che l'account utente è approvato per la convalida. In caso contrario, false.</param>
+      <param name="providerUserKey">Identificatore univoco proveniente dall'origine dati delle appartenenze per l'account utente.</param>
+      <param name="status">Quando termina, questo metodo restituisce un valore di enumerazione <see cref="T:System.Web.Security.MembershipCreateStatus" /> che indica se l'account utente è stato creato. Questo parametro viene passato senza inizializzazione.</param>
+    </member>
+    <member name="M:WebMatrix.WebData.SimpleMembershipProvider.CreateUserAndAccount(System.String,System.String,System.Boolean,System.Collections.Generic.IDictionary{System.String,System.Object})">
+      <summary>Crea un nuovo profilo utente e un nuovo account di appartenenza.</summary>
+      <returns>Token che è possibile inviare all'utente per confermare l'account utente.</returns>
+      <param name="userName">Nome utente.</param>
+      <param name="password">Password.</param>
+      <param name="requireConfirmation">(Facoltativo) true per specificare che è necessario confermare l'account utente utilizzando il metodo <see cref="M:WebMatrix.WebData.SimpleMembershipProvider.ConfirmAccount(System.String)" />. In caso contrario, false. Il valore predefinito è false. </param>
+      <param name="values">(Facoltativo) Dizionario contenente attributi di coppia chiave/valore aggiuntivi che è possibile includere nell'archivio dati come valori predefiniti per il nuovo profilo utente. La chiave per ciascuna voce corrisponde alla colonna di database, mentre il valore di ciascuna voce è rappresentato dal valore della colonna. Il valore predefinito è null.</param>
+      <exception cref="T:System.InvalidOperationException">La classe <see cref="T:WebMatrix.WebData.SimpleMembershipProvider" /> non è stata inizializzata tramite una chiamata al metodo <see cref="Overload:WebMatrix.WebData.WebSecurity.InitializeDatabaseConnection" />.</exception>
+      <exception cref="T:System.Web.Security.MembershipCreateUserException">Nel database delle appartenenze è già presente un account di appartenenza per il nome utente corrente.</exception>
+    </member>
+    <member name="M:WebMatrix.WebData.SimpleMembershipProvider.DeleteAccount(System.String)">
+      <summary>Elimina l'account di appartenenza specificato.</summary>
+      <returns>true se l'account utente è stato eliminato. In caso contrario, false.</returns>
+      <param name="userName">Nome utente.</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="username" /> è null o vuoto.</exception>
+      <exception cref="T:System.InvalidOperationException">La classe <see cref="T:WebMatrix.WebData.SimpleMembershipProvider" /> non è stata inizializzata tramite una chiamata al metodo <see cref="Overload:WebMatrix.WebData.WebSecurity.InitializeDatabaseConnection" />.</exception>
+    </member>
+    <member name="M:WebMatrix.WebData.SimpleMembershipProvider.DeleteOAuthAccount(System.String,System.String)">
+      <summary>Elimina l'account OAuth o OpenID con il nome e l'ID utente del provider specificati.</summary>
+      <param name="provider">Nome del provider OAuth o OpenID.</param>
+      <param name="providerUserId">ID utente del provider OAuth o OpenID. Non corrisponde all'ID utente dell'account utente.</param>
+      <exception cref="T:System.InvalidOperationException">La classe <see cref="T:WebMatrix.WebData.SimpleMembershipProvider" /> non è stata inizializzata tramite una chiamata al metodo <see cref="Overload:WebMatrix.WebData.WebSecurity.InitializeDatabaseConnection" />.</exception>
+      <exception cref="T:System.Web.Security.MembershipCreateUserException">
+        <paramref name="username" /> è vuoto.oppureUn record utente corrispondente a <paramref name="username" /> non è presente nella tabella <see cref="P:WebMatrix.WebData.SimpleMembershipProvider.UserTableName" /> (tabella dei profili utente).oppureOperazione di database non riuscita.</exception>
+    </member>
+    <member name="M:WebMatrix.WebData.SimpleMembershipProvider.DeleteOAuthToken(System.String)"></member>
+    <member name="M:WebMatrix.WebData.SimpleMembershipProvider.DeleteUser(System.String,System.Boolean)">
+      <summary>Elimina l'account utente specificato e, facoltativamente, tutti i dati del profilo relativi a tale account.</summary>
+      <returns>true se l'account utente è stato eliminato. In caso contrario, false.</returns>
+      <param name="username">Nome utente.</param>
+      <param name="deleteAllRelatedData">true per eliminare i dati del profilo relativi all'account utente oppure false per mantenere tali dati.</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="username" /> è null o vuoto.</exception>
+    </member>
+    <member name="P:WebMatrix.WebData.SimpleMembershipProvider.EnablePasswordReset">
+      <summary>Ottiene un valore che indica se il provider di appartenenze consente agli utenti di reimpostare le rispettive password.</summary>
+      <returns>true se il provider di appartenenze supporta il ripristino della password. In caso contrario, false. Il valore predefinito è true.</returns>
+    </member>
+    <member name="P:WebMatrix.WebData.SimpleMembershipProvider.EnablePasswordRetrieval">
+      <summary>Ottiene un valore che indica se il provider di appartenenze consente agli utenti di recuperare le rispettive password.</summary>
+      <returns>true se il provider di appartenenze supporta il recupero della password. In caso contrario, false. Il valore predefinito è false.</returns>
+    </member>
+    <member name="M:WebMatrix.WebData.SimpleMembershipProvider.FindUsersByEmail(System.String,System.Int32,System.Int32,System.Int32@)">
+      <summary>Restituisce tutti gli account utente il cui indirizzo di posta elettronica corrisponde a quello specificato.</summary>
+      <returns>Raccolta contenente una pagina di <paramref name="pageSize" /> account utente che inizia alla pagina specificata in <paramref name="pageIndex" />.</returns>
+      <param name="emailToMatch">Indirizzo di posta elettronica da cercare.</param>
+      <param name="pageIndex">Indice in base zero della pagina di risultati da restituire.</param>
+      <param name="pageSize">Dimensione della pagina di risultati da restituire.</param>
+      <param name="totalRecords">Quando termina, questo metodo restituisce il numero totale di account utente corrispondenti.</param>
+    </member>
+    <member name="M:WebMatrix.WebData.SimpleMembershipProvider.FindUsersByName(System.String,System.Int32,System.Int32,System.Int32@)">
+      <summary>Restituisce tutti gli account utente il cui nome corrisponde al nome utente specificato.</summary>
+      <returns>Raccolta contenente una pagina di <paramref name="pageSize" /> account utente che inizia alla pagina specificata in <paramref name="pageIndex" />.</returns>
+      <param name="usernameToMatch">Nome utente da cercare.</param>
+      <param name="pageIndex">Indice in base zero della pagina di risultati da restituire.</param>
+      <param name="pageSize">Dimensione della pagina di risultati da restituire.</param>
+      <param name="totalRecords">Quando termina, questo metodo restituisce il numero totale di utenti corrispondenti.</param>
+    </member>
+    <member name="M:WebMatrix.WebData.SimpleMembershipProvider.GeneratePasswordResetToken(System.String,System.Int32)">
+      <summary>Genera un token di reimpostazione della password che è possibile inviare a un utente tramite posta elettronica.</summary>
+      <returns>Token da inviare all'utente.</returns>
+      <param name="userName">Nome utente.</param>
+      <param name="tokenExpirationInMinutesFromNow">(Facoltativo) Intervallo di tempo, in minuti, fino alla scadenza del token di reimpostazione della password. Il valore predefinito è 1440 (24 ore).</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="username" /> è vuoto.</exception>
+      <exception cref="T:System.Configuration.Provider.ProviderException">Operazione di database non riuscita.</exception>
+      <exception cref="T:System.InvalidOperationException">La classe <see cref="T:WebMatrix.WebData.SimpleMembershipProvider" /> non è stata inizializzata tramite una chiamata al metodo <see cref="Overload:WebMatrix.WebData.WebSecurity.InitializeDatabaseConnection" />.</exception>
+    </member>
+    <member name="M:WebMatrix.WebData.SimpleMembershipProvider.GetAccountsForUser(System.String)">
+      <summary>Restituisce tutti gli account di appartenenza OAuth associati al nome utente specificato.</summary>
+      <returns>Elenco di tutti gli account di appartenenza OAuth associati al nome utente specificato.</returns>
+      <param name="userName">Nome utente.</param>
+      <exception cref="T:System.InvalidOperationException">La classe <see cref="T:WebMatrix.WebData.SimpleMembershipProvider" /> non è stata inizializzata tramite una chiamata al metodo <see cref="Overload:WebMatrix.WebData.WebSecurity.InitializeDatabaseConnection" />.</exception>
+    </member>
+    <member name="M:WebMatrix.WebData.SimpleMembershipProvider.GetAllUsers(System.Int32,System.Int32,System.Int32@)">
+      <summary>Restituisce tutti gli account utente presenti nell'origine dati.</summary>
+      <returns>Raccolta contenente una pagina di <paramref name="pageSize" /> account utente che inizia alla pagina specificata in <paramref name="pageIndex" />.</returns>
+      <param name="pageIndex">Indice in base zero della pagina di risultati da restituire.</param>
+      <param name="pageSize">Dimensione della pagina di risultati da restituire.</param>
+      <param name="totalRecords">Quando termina, questo metodo restituisce il numero totale di account utente corrispondenti.</param>
+    </member>
+    <member name="M:WebMatrix.WebData.SimpleMembershipProvider.GetCreateDate(System.String)">
+      <summary>Restituisce la data e l'ora di creazione dell'account utente specificato.</summary>
+      <returns>Data e ora di creazione dell'account utente oppure <see cref="F:System.DateTime.MinValue" /> se tale data non è disponibile.</returns>
+      <param name="userName">Nome utente dell'account.</param>
+      <exception cref="T:System.InvalidOperationException">L'utente specificato da <paramref name="userName" /> non possiede un account utente.</exception>
+    </member>
+    <member name="M:WebMatrix.WebData.SimpleMembershipProvider.GetLastPasswordFailureDate(System.String)">
+      <summary>Restituisce la data e l'ora dell'ultima immissione di una password errata per l'account utente specificato.</summary>
+      <returns>Data e ora dell'ultima volta in cui è stata immessa una password errata per l'account utente corrente oppure <see cref="F:System.DateTime.MinValue" /> se per tale account utente non è stata immessa una password errata.</returns>
+      <param name="userName">Nome utente dell'account.</param>
+    </member>
+    <member name="M:WebMatrix.WebData.SimpleMembershipProvider.GetNumberOfUsersOnline">
+      <summary>Restituisce il numero di utenti che attualmente accedono all'applicazione.</summary>
+      <returns>Numero di utenti che attualmente accedono all'applicazione.</returns>
+    </member>
+    <member name="M:WebMatrix.WebData.SimpleMembershipProvider.GetOAuthTokenSecret(System.String)"></member>
+    <member name="M:WebMatrix.WebData.SimpleMembershipProvider.GetPassword(System.String,System.String)">
+      <summary>Restituisce la password per l'account utente specificato dall'origine dati.</summary>
+      <returns>Password per l'account utente specificato.</returns>
+      <param name="username">Utente per il quale recuperare la password.</param>
+      <param name="answer">Risposta alla domanda di sicurezza della password.</param>
+      <exception cref="T:System.NotSupportedException">
+        <see cref="P:WebMatrix.WebData.SimpleMembershipProvider.EnablePasswordRetrieval" /> è false.</exception>
+      <exception cref="T:System.Web.Security.MembershipPasswordException">
+        <paramref name="answer" /> non corrisponde alla risposta alla domanda di sicurezza per l'account utente e <see cref="P:WebMatrix.WebData.SimpleMembershipProvider.RequiresQuestionAndAnswer" /> è true.</exception>
+    </member>
+    <member name="M:WebMatrix.WebData.SimpleMembershipProvider.GetPasswordChangedDate(System.String)">
+      <summary>Restituisce la data e l'ora dell'ultima modifica apportata alla password per l'account di appartenenza specificato.</summary>
+      <returns>Data e ora dell'ultima modifica della password per l'account corrente oppure <see cref="F:System.DateTime.MinValue" /> se la password non è mai stata modificata per l'account di appartenenza corrente.</returns>
+      <param name="userName">Nome utente dell'account.</param>
+      <exception cref="T:System.InvalidOperationException">L'utente specificato da <paramref name="userName" /> non possiede un account di appartenenza.</exception>
+    </member>
+    <member name="M:WebMatrix.WebData.SimpleMembershipProvider.GetPasswordFailuresSinceLastSuccess(System.String)">
+      <summary>Restituisce il numero di volte in cui è stata immessa una password errata per l'account utente specificato a partire dall'ultimo accesso corretto o dalla creazione dell'account utente.</summary>
+      <returns>Numero di tentativi di immissione della password non riusciti per l'account utente specificato oppure -1 se l'utente specificato da <paramref name="userName" /> non possiede un account utente.</returns>
+      <param name="userName">Nome utente dell'account.</param>
+    </member>
+    <member name="M:WebMatrix.WebData.SimpleMembershipProvider.GetUser(System.Object,System.Boolean)">
+      <summary>Restituisce le informazioni sull'account utente utilizzando l'ID utente specificato e, facoltativamente, aggiorna il timestamp dell'ultima attività eseguita per tale account.</summary>
+      <returns>Oggetto popolato con le informazioni sull'account utente oppure null se è impossibile trovare <paramref name="providerUserKey" />.</returns>
+      <param name="providerUserKey">ID dell'account utente per il quale ottenere informazioni. L'ID è un valore <see cref="T:System.Int32" /> memorizzato come un'istanza di <see cref="T:System.Object" />.</param>
+      <param name="userIsOnline">true per aggiornare il timestamp dell'ultima attività relativa all'account utente. false per restituire le informazioni sull'account utente senza aggiornare il timestamp.</param>
+    </member>
+    <member name="M:WebMatrix.WebData.SimpleMembershipProvider.GetUser(System.String,System.Boolean)">
+      <summary>Restituisce le informazioni sull'account utente utilizzando il nome utente specificato e, facoltativamente, aggiorna il timestamp dell'ultima attività eseguita per tale account.</summary>
+      <returns>Oggetto popolato con le informazioni sull'account utente oppure null se è impossibile trovare <paramref name="username" />.</returns>
+      <param name="username">Nome dell'utente per il quale ottenere informazioni.</param>
+      <param name="userIsOnline">true per aggiornare il timestamp dell'ultima attività relativa all'account utente. false per restituire le informazioni sull'account utente senza aggiornare il timestamp.</param>
+    </member>
+    <member name="M:WebMatrix.WebData.SimpleMembershipProvider.GetUserId(System.String)">
+      <summary>Restituisce l'ID di un utente in base al nome utente specificato.</summary>
+      <returns>ID utente.</returns>
+      <param name="userName">Nome utente.</param>
+      <exception cref="T:System.InvalidOperationException">La classe <see cref="T:WebMatrix.WebData.SimpleMembershipProvider" /> non è stata inizializzata tramite una chiamata al metodo <see cref="Overload:WebMatrix.WebData.WebSecurity.InitializeDatabaseConnection" />.</exception>
+    </member>
+    <member name="M:WebMatrix.WebData.SimpleMembershipProvider.GetUserIdFromOAuth(System.String,System.String)">
+      <summary>Restituisce l'ID utente per il provider OAuth or OpenID specificato.</summary>
+      <returns>ID utente o -1 se all'ID utente del provider OAuth o OpenID non è associato alcun ID utente.</returns>
+      <param name="provider">Nome del provider OAuth o OpenID.</param>
+      <param name="providerUserId">ID utente del provider OAuth o OpenID. Non corrisponde all'ID utente dell'account utente.</param>
+    </member>
+    <member name="M:WebMatrix.WebData.SimpleMembershipProvider.GetUserIdFromPasswordResetToken(System.String)">
+      <summary>Restituisce l'ID di un utente in base a un token di reimpostazione della password.</summary>
+      <returns>ID utente oppure -1 se non è presente alcun ID utente associato al token di reimpostazione della password specificato.</returns>
+      <param name="token">Token di reimpostazione della password.</param>
+      <exception cref="T:System.InvalidOperationException">La classe <see cref="T:WebMatrix.WebData.SimpleMembershipProvider" /> non è stata inizializzata tramite una chiamata al metodo <see cref="Overload:WebMatrix.WebData.WebSecurity.InitializeDatabaseConnection" />.</exception>
+    </member>
+    <member name="M:WebMatrix.WebData.SimpleMembershipProvider.GetUserNameByEmail(System.String)">
+      <summary>Restituisce il nome utente associato all'indirizzo di posta elettronica specificato.</summary>
+      <returns>Nome utente associato all'indirizzo di posta elettronica specificato oppure null se non viene trovata alcuna corrispondenza.</returns>
+      <param name="email">Indirizzo di posta elettronica da cercare.</param>
+    </member>
+    <member name="M:WebMatrix.WebData.SimpleMembershipProvider.GetUserNameFromId(System.Int32)">
+      <summary>Restituisce il nome utente associato all'ID utente specificato.</summary>
+      <returns>Nome utente.</returns>
+      <param name="userId">ID utente per il quale ottenere il nome.</param>
+    </member>
+    <member name="M:WebMatrix.WebData.SimpleMembershipProvider.HasLocalAccount(System.Int32)"></member>
+    <member name="M:WebMatrix.WebData.SimpleMembershipProvider.Initialize(System.String,System.Collections.Specialized.NameValueCollection)">
+      <summary>Inizializza il provider.</summary>
+      <param name="name">Nome descrittivo del provider.</param>
+      <param name="config">Raccolta di coppie nome/valore che rappresentano attributi specifici del provider.</param>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="config" /> è null.</exception>
+      <exception cref="T:System.Configuration.Provider.ProviderException">
+        <paramref name="config" /> contiene un attributo non riconosciuto.</exception>
+    </member>
+    <member name="M:WebMatrix.WebData.SimpleMembershipProvider.IsConfirmed(System.String)">
+      <summary>Restituisce un valore che indica se l'account utente è stato confermato dal provider.</summary>
+      <returns>true se l'account utente è stato confermato. In caso contrario, false.</returns>
+      <param name="userName">Nome utente.</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="userName" /> è null o vuoto.</exception>
+      <exception cref="T:System.InvalidOperationException">La classe <see cref="T:WebMatrix.WebData.SimpleMembershipProvider" /> non è stata inizializzata tramite una chiamata al metodo <see cref="Overload:WebMatrix.WebData.WebSecurity.InitializeDatabaseConnection" />.</exception>
+    </member>
+    <member name="P:WebMatrix.WebData.SimpleMembershipProvider.MaxInvalidPasswordAttempts">
+      <summary>Ottiene il numero consentito di tentativi non riusciti di inserimento della password o della risposta segreta oltre il quale l'utente di appartenenza viene bloccato.</summary>
+      <returns>Numero consentito di tentativi non riusciti di inserimento della password o della risposta segreta oltre il quale l'utente di appartenenza viene bloccato.</returns>
+    </member>
+    <member name="P:WebMatrix.WebData.SimpleMembershipProvider.MinRequiredNonAlphanumericCharacters">
+      <summary>Ottiene il numero minimo di caratteri speciali (non alfanumerici) che una password deve contenere.</summary>
+      <returns>Numero minimo di caratteri speciali che una password deve contenere.</returns>
+    </member>
+    <member name="P:WebMatrix.WebData.SimpleMembershipProvider.MinRequiredPasswordLength">
+      <summary>Ottiene la lunghezza minima richiesta per una password.</summary>
+      <returns>Lunghezza minima richiesta per una password.</returns>
+    </member>
+    <member name="P:WebMatrix.WebData.SimpleMembershipProvider.PasswordAttemptWindow">
+      <summary>Ottiene il numero di minuti durante i quali è consentito eseguire il numero massimo di tentativi di inserimento di password e di risposte alle domande di sicurezza non valide prima che l'account utente venga bloccato.</summary>
+      <returns>Numero di minuti.</returns>
+    </member>
+    <member name="P:WebMatrix.WebData.SimpleMembershipProvider.PasswordFormat">
+      <summary>Ottiene un valore che indica il formato utilizzato per la memorizzazione di password.</summary>
+      <returns>Uno dei valori di enumerazione che indicano il formato.</returns>
+    </member>
+    <member name="P:WebMatrix.WebData.SimpleMembershipProvider.PasswordStrengthRegularExpression">
+      <summary>Ottiene l'espressione regolare utilizzata per valutare la complessità delle password.</summary>
+      <returns>Espressione regolare utilizzata per valutare la complessità delle password.</returns>
+    </member>
+    <member name="M:WebMatrix.WebData.SimpleMembershipProvider.ReplaceOAuthRequestTokenWithAccessToken(System.String,System.String,System.String)"></member>
+    <member name="P:WebMatrix.WebData.SimpleMembershipProvider.RequiresQuestionAndAnswer">
+      <summary>Ottiene un valore che indica se il provider di appartenenze richiede che l'utente risponda a una domanda di sicurezza per la reimpostazione e il recupero della password.</summary>
+      <returns>true se la risposta alla domanda di sicurezza è obbligatoria. In caso contrario, false. Il valore predefinito è true.</returns>
+    </member>
+    <member name="P:WebMatrix.WebData.SimpleMembershipProvider.RequiresUniqueEmail">
+      <summary>Ottiene un valore che indica se il provider di appartenenze richiede un unico indirizzo di posta elettronica per ciascun nome utente.</summary>
+      <returns>true se il provider di appartenenze richiede un unico indirizzo di posta elettronica. In caso contrario, false. Il valore predefinito è true.</returns>
+    </member>
+    <member name="M:WebMatrix.WebData.SimpleMembershipProvider.ResetPassword(System.String,System.String)">
+      <summary>Reimposta la password per un account utente generando automaticamente una nuova password.</summary>
+      <returns>Nuova password per l'account utente specificato.</returns>
+      <param name="username">Account utente per il quale reimpostare la password.</param>
+      <param name="answer">Risposta alla domanda di sicurezza per il nuovo utente.</param>
+      <exception cref="T:System.NotSupportedException">
+        <see cref="P:WebMatrix.WebData.SimpleMembershipProvider.EnablePasswordReset" /> è false.</exception>
+      <exception cref="T:System.Web.Security.MembershipPasswordException">
+        <paramref name="answer" /> non corrisponde alla risposta alla domanda di sicurezza per l'account utente presente nella tabella delle appartenenze e <see cref="P:WebMatrix.WebData.SimpleMembershipProvider.RequiresQuestionAndAnswer" /> è true.</exception>
+    </member>
+    <member name="M:WebMatrix.WebData.SimpleMembershipProvider.ResetPasswordWithToken(System.String,System.String)">
+      <summary>Reimposta una password dopo avere verificato la validità del token di reimpostazione della password specificato.</summary>
+      <returns>true se la password è stata modificata. In caso contrario, false.</returns>
+      <param name="token">Token di reimpostazione della password.</param>
+      <param name="newPassword">Nuova password.</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="newPassword" /> è null o vuoto.</exception>
+      <exception cref="T:System.InvalidOperationException">La classe <see cref="T:WebMatrix.WebData.SimpleMembershipProvider" /> non è stata inizializzata tramite una chiamata al metodo <see cref="Overload:WebMatrix.WebData.WebSecurity.InitializeDatabaseConnection" />.</exception>
+    </member>
+    <member name="M:WebMatrix.WebData.SimpleMembershipProvider.StoreOAuthRequestToken(System.String,System.String)"></member>
+    <member name="M:WebMatrix.WebData.SimpleMembershipProvider.UnlockUser(System.String)">
+      <summary>Sblocca un account utente per consentire la convalida dell'utente di appartenenza.</summary>
+      <returns>true se l'account utente è stato sbloccato. In caso contrario, false.</returns>
+      <param name="userName">Utente di cui si desidera sbloccare l'account.</param>
+    </member>
+    <member name="M:WebMatrix.WebData.SimpleMembershipProvider.UpdateUser(System.Web.Security.MembershipUser)">
+      <summary>Aggiorna le informazioni utente.</summary>
+      <param name="user">Oggetto che rappresenta l'account utente e le relative informazioni da aggiornare.</param>
+    </member>
+    <member name="P:WebMatrix.WebData.SimpleMembershipProvider.UserIdColumn">
+      <summary>Ottiene o imposta il nome della colonna di database che contiene gli ID utente.</summary>
+      <returns>Nome della colonna di database che contiene gli ID utente.</returns>
+    </member>
+    <member name="P:WebMatrix.WebData.SimpleMembershipProvider.UserNameColumn">
+      <summary>Ottiene o imposta il nome della colonna di database che contiene i nomi utente.</summary>
+      <returns>Nome della colonna di database che contiene i nomi utente.</returns>
+    </member>
+    <member name="P:WebMatrix.WebData.SimpleMembershipProvider.UserTableName">
+      <summary>Ottiene o imposta il nome della tabella di database che contiene le informazioni utente.</summary>
+      <returns>Nome della tabella di database che contiene le informazioni utente.</returns>
+    </member>
+    <member name="M:WebMatrix.WebData.SimpleMembershipProvider.ValidateUser(System.String,System.String)">
+      <summary>Verifica l'esistenza dell'account utente e della password specificati.</summary>
+      <returns>true se il nome utente e la password specificati esistono e se l'account è stato confermato. In caso contrario, false.</returns>
+      <param name="username">Nome dell'account utente da convalidare.</param>
+      <param name="password">Password per l'utente specificato.</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="username" /> o <paramref name="password" /> è null o vuota.</exception>
+    </member>
+    <member name="T:WebMatrix.WebData.SimpleRoleProvider">
+      <summary>Fornisce la funzionalità di base per la gestione dei ruoli.</summary>
+    </member>
+    <member name="M:WebMatrix.WebData.SimpleRoleProvider.#ctor">
+      <summary>Inizializza una nuova istanza della classe <see cref="T:WebMatrix.WebData.SimpleRoleProvider" />.</summary>
+    </member>
+    <member name="M:WebMatrix.WebData.SimpleRoleProvider.#ctor(System.Web.Security.RoleProvider)">
+      <summary>Inizializza una nuova istanza della classe <see cref="T:WebMatrix.WebData.SimpleRoleProvider" /> utilizzando il provider di ruoli specificato.</summary>
+      <param name="previousProvider">Provider di ruoli precedente.</param>
+    </member>
+    <member name="M:WebMatrix.WebData.SimpleRoleProvider.AddUsersToRoles(System.String[],System.String[])">
+      <summary>Aggiunge i nomi utente specificati ai ruoli specificati.</summary>
+      <param name="usernames">Nomi utente da aggiungere.</param>
+      <param name="roleNames">Ruoli a cui aggiungere i nomi utente.</param>
+      <exception cref="T:System.InvalidOperationException">Uno o più utenti specificati esistono già in uno o più ruoli specificati.</exception>
+    </member>
+    <member name="P:WebMatrix.WebData.SimpleRoleProvider.ApplicationName">
+      <summary>Ottiene o imposta il nome dell'applicazione per la quale memorizzare e recuperare le informazioni sui ruoli.</summary>
+      <returns>Nome dell'applicazione per la quale memorizzare e recuperare le informazioni sui ruoli.</returns>
+    </member>
+    <member name="M:WebMatrix.WebData.SimpleRoleProvider.CreateRole(System.String)">
+      <summary>Aggiunge un nuovo ruolo.</summary>
+      <param name="roleName">Nome del ruolo da creare.</param>
+      <exception cref="T:System.InvalidOperationException">Il ruolo esiste già.</exception>
+    </member>
+    <member name="M:WebMatrix.WebData.SimpleRoleProvider.DeleteRole(System.String,System.Boolean)">
+      <summary>Elimina il ruolo specificato.</summary>
+      <returns>true se il ruolo è stato eliminato. In caso contrario, false.</returns>
+      <param name="roleName">Nome del ruolo da eliminare.</param>
+      <param name="throwOnPopulatedRole">true per generare un'eccezione nel caso in cui uno o più utenti siano inclusi in <paramref name="roleName" />. In questo caso, il ruolo specificato non viene eliminato.</param>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="roleName" /> contiene uno o più membri e <paramref name="throwOnPopulatedRole" /> è true.</exception>
+    </member>
+    <member name="M:WebMatrix.WebData.SimpleRoleProvider.FindUsersInRole(System.String,System.String)">
+      <summary>Restituisce tutti gli utenti specificati contenuti nel ruolo specificato.</summary>
+      <returns>Nomi di tutti gli utenti nei casi in cui il nome utente corrisponda a <paramref name="usernameToMatch" /> e l'utente sia incluso nel ruolo specificato.</returns>
+      <param name="roleName">Ruolo nel quale eseguire la ricerca.</param>
+      <param name="usernameToMatch">Nome utente da cercare.</param>
+    </member>
+    <member name="M:WebMatrix.WebData.SimpleRoleProvider.GetAllRoles">
+      <summary>Restituisce un elenco di tutti i ruoli.</summary>
+      <returns>Nomi di tutti i ruoli.</returns>
+    </member>
+    <member name="M:WebMatrix.WebData.SimpleRoleProvider.GetRolesForUser(System.String)">
+      <summary>Restituisce un elenco dei ruoli che contengono un utente specificato.</summary>
+      <returns>Nomi di tutti i ruoli di cui è membro l'utente specificato.</returns>
+      <param name="username">Utente per il quale viene restituito un elenco di ruoli.</param>
+      <exception cref="T:System.InvalidOperationException">L'utente specificato non possiede un account di appartenenza.</exception>
+    </member>
+    <member name="M:WebMatrix.WebData.SimpleRoleProvider.GetUsersInRole(System.String)">
+      <summary>Restituisce i nomi utente contenuti nel ruolo specificato.</summary>
+      <returns>Nomi utente contenuti nel ruolo specificato.</returns>
+      <param name="roleName">Nome del ruolo.</param>
+    </member>
+    <member name="M:WebMatrix.WebData.SimpleRoleProvider.IsUserInRole(System.String,System.String)">
+      <summary>Restituisce un valore che indica se l'utente specificato è incluso nel ruolo specificato.</summary>
+      <returns>true se l'utente è incluso nel ruolo. In caso contrario, false. </returns>
+      <param name="username">Nome utente.</param>
+      <param name="roleName">Nome del ruolo.</param>
+    </member>
+    <member name="M:WebMatrix.WebData.SimpleRoleProvider.RemoveUsersFromRoles(System.String[],System.String[])">
+      <summary>Rimuove i nomi utente specificati dai ruoli specificati.</summary>
+      <param name="usernames">Nomi utente da rimuovere dai ruoli specificati.</param>
+      <param name="roleNames">Nomi dei ruoli dai quali rimuovere i nomi utente specificati.</param>
+      <exception cref="T:System.InvalidOperationException">Uno o più ruoli specificati non esistono.oppureUno o più utenti non sono contenuti in tutti i ruoli specificati.</exception>
+      <exception cref="T:System.Configuration.Provider.ProviderException">Operazione di database non riuscita.</exception>
+    </member>
+    <member name="M:WebMatrix.WebData.SimpleRoleProvider.RoleExists(System.String)">
+      <summary>Restituisce un valore che indica se un ruolo specificato esiste.</summary>
+      <returns>true se il ruolo esiste. In caso contrario, false.</returns>
+      <param name="roleName">Nome del ruolo.</param>
+    </member>
+    <member name="P:WebMatrix.WebData.SimpleRoleProvider.UserIdColumn">
+      <summary>Ottiene il nome della colonna di database che contiene gli ID utente.</summary>
+      <returns>Nome della colonna di database contenuta nella tabella <see cref="P:WebMatrix.WebData.SimpleRoleProvider.UserTableName" /> che contiene gli ID utente.</returns>
+    </member>
+    <member name="P:WebMatrix.WebData.SimpleRoleProvider.UserNameColumn">
+      <summary>Ottiene il nome della colonna di database che contiene i nomi utente.</summary>
+      <returns>Nome della colonna di database contenuta nella tabella <see cref="P:WebMatrix.WebData.SimpleRoleProvider.UserTableName" /> che contiene i nomi utente.</returns>
+    </member>
+    <member name="P:WebMatrix.WebData.SimpleRoleProvider.UserTableName">
+      <summary>Ottiene il nome della tabella di database che contiene le informazioni utente.</summary>
+      <returns>Nome della tabella di database inclusa nella tabella <see cref="P:WebMatrix.WebData.SimpleRoleProvider.UserTableName" /> che contiene le informazioni utente.</returns>
+    </member>
+    <member name="T:WebMatrix.WebData.WebSecurity">
+      <summary>Offre funzionalità di autenticazione e di sicurezza per le applicazioni ASP.NET Web Pages, inclusa la possibilità di creare account utente, di consentire l'accesso agli utenti e di disconnetterli, di reimpostare o modificare le password e di eseguire attività correlate.</summary>
+    </member>
+    <member name="M:WebMatrix.WebData.WebSecurity.ChangePassword(System.String,System.String,System.String)">
+      <summary>Modifica la password dell'utente specificato.</summary>
+      <returns>true se la password è stata modificata. In caso contrario, false.</returns>
+      <param name="userName">Nome utente.</param>
+      <param name="currentPassword">Password corrente dell'utente.</param>
+      <param name="newPassword">Nuova password.</param>
+      <exception cref="T:System.InvalidOperationException">Il metodo <see cref="M:WebMatrix.WebData.SimpleMembershipProvider.Initialize(System.String,System.Collections.Specialized.NameValueCollection)" /> non è stato chiamato.oppureIl metodo <see cref="Overload:WebMatrix.WebData.WebSecurity.InitializeDatabaseConnection" /> non è stato chiamato.oppureIl provider di appartenenze <see cref="T:WebMatrix.WebData.SimpleMembershipProvider" /> non è registrato nella configurazione del sito. Per ulteriori informazioni, contattare l'amministratore di sistema del sito.</exception>
+    </member>
+    <member name="M:WebMatrix.WebData.WebSecurity.ConfirmAccount(System.String)">
+      <summary>Conferma la validità di un account e attiva l'account.</summary>
+      <returns>true se l'account è confermato. In caso contrario, false.</returns>
+      <param name="accountConfirmationToken">Token di conferma da passare al provider di autenticazione.</param>
+      <exception cref="T:System.InvalidOperationException">Il metodo <see cref="M:WebMatrix.WebData.SimpleMembershipProvider.Initialize(System.String,System.Collections.Specialized.NameValueCollection)" /> non è stato chiamato.oppureIl metodo <see cref="Overload:WebMatrix.WebData.WebSecurity.InitializeDatabaseConnection" /> non è stato chiamato.oppureIl provider di appartenenze <see cref="T:WebMatrix.WebData.SimpleMembershipProvider" /> non è registrato nella configurazione del sito. Per ulteriori informazioni, contattare l'amministratore di sistema del sito.</exception>
+    </member>
+    <member name="M:WebMatrix.WebData.WebSecurity.ConfirmAccount(System.String,System.String)">
+      <summary>Conferma che un account per il nome utente specificato è valido e attiva tale account.</summary>
+      <returns>true se l'account è confermato. In caso contrario, false.</returns>
+      <param name="userName">Nome utente.</param>
+      <param name="accountConfirmationToken">Token di conferma da passare al provider di autenticazione.</param>
+      <exception cref="T:System.InvalidOperationException">Il metodo <see cref="M:WebMatrix.WebData.SimpleMembershipProvider.Initialize(System.String,System.Collections.Specialized.NameValueCollection)" /> non è stato chiamato.oppureIl metodo <see cref="Overload:WebMatrix.WebData.WebSecurity.InitializeDatabaseConnection" /> non è stato chiamato.oppureIl provider di appartenenze <see cref="T:WebMatrix.WebData.SimpleMembershipProvider" /> non è registrato nella configurazione del sito. Per ulteriori informazioni, contattare l'amministratore di sistema del sito.</exception>
+    </member>
+    <member name="M:WebMatrix.WebData.WebSecurity.CreateAccount(System.String,System.String,System.Boolean)">
+      <summary>Crea un nuovo account di appartenenza utilizzando il nome utente e la password specificati e, facoltativamente, consente di specificare che l'utente deve esplicitamente confermare l'account.</summary>
+      <returns>Token che è possibile inviare all'utente per confermare l'account.</returns>
+      <param name="userName">Nome utente.</param>
+      <param name="password">Password.</param>
+      <param name="requireConfirmationToken">(Facoltativo) true per specificare che è necessario confermare l'account utilizzando il valore del token restituito. In caso contrario, false. Il valore predefinito è false. </param>
+      <exception cref="T:System.Web.Security.MembershipCreateUserException">
+        <paramref name="username" /> è vuoto.oppure<paramref name="username" /> possiede già un account di appartenenza.oppure<paramref name="password" /> è vuoto.oppure<paramref name="password" /> è troppo lunga.oppureOperazione di database non riuscita.</exception>
+      <exception cref="T:System.InvalidOperationException">Il metodo <see cref="M:WebMatrix.WebData.SimpleMembershipProvider.Initialize(System.String,System.Collections.Specialized.NameValueCollection)" /> non è stato chiamato.oppureIl metodo <see cref="Overload:WebMatrix.WebData.WebSecurity.InitializeDatabaseConnection" /> non è stato chiamato.oppureIl provider di appartenenze <see cref="T:WebMatrix.WebData.SimpleMembershipProvider" /> non è registrato nella configurazione del sito. Per ulteriori informazioni, contattare l'amministratore di sistema del sito.</exception>
+    </member>
+    <member name="M:WebMatrix.WebData.WebSecurity.CreateUserAndAccount(System.String,System.String,System.Object,System.Boolean)">
+      <summary>Crea una nuova voce di profilo utente e un nuovo account di appartenenza.</summary>
+      <returns>Token che è possibile inviare all'utente per confermare l'account utente.</returns>
+      <param name="userName">Nome utente.</param>
+      <param name="password">Password dell'utente.</param>
+      <param name="propertyValues">(Facoltativo) Dizionario contenente attributi utente aggiuntivi. Il valore predefinito è null.</param>
+      <param name="requireConfirmationToken">(Facoltativo) true per specificare che è necessario confermare l'account utente. In caso contrario, false. Il valore predefinito è false.</param>
+      <exception cref="T:System.InvalidOperationException">Il metodo <see cref="M:WebMatrix.WebData.SimpleMembershipProvider.Initialize(System.String,System.Collections.Specialized.NameValueCollection)" /> non è stato chiamato.oppureIl metodo <see cref="Overload:WebMatrix.WebData.WebSecurity.InitializeDatabaseConnection" /> non è stato chiamato.oppureIl provider di appartenenze <see cref="T:WebMatrix.WebData.SimpleMembershipProvider" /> non è registrato nella configurazione del sito. Per ulteriori informazioni, contattare l'amministratore di sistema del sito.</exception>
+    </member>
+    <member name="P:WebMatrix.WebData.WebSecurity.CurrentUserId">
+      <summary>Ottiene l'ID dell'utente corrente.</summary>
+      <returns>ID dell'utente corrente.</returns>
+    </member>
+    <member name="P:WebMatrix.WebData.WebSecurity.CurrentUserName">
+      <summary>Ottiene il nome dell'utente corrente.</summary>
+      <returns>Nome dell'utente corrente.</returns>
+    </member>
+    <member name="F:WebMatrix.WebData.WebSecurity.EnableSimpleMembershipKey">
+      <summary>Rappresenta la chiave del valore di enableSimpleMembership nella proprietà <see cref="P:System.Configuration.ConfigurationManager.AppSettings" />.</summary>
+    </member>
+    <member name="M:WebMatrix.WebData.WebSecurity.GeneratePasswordResetToken(System.String,System.Int32)">
+      <summary>Genera un token di reimpostazione della password che è possibile inviare a un utente tramite posta elettronica.</summary>
+      <returns>Token da inviare all'utente.</returns>
+      <param name="userName">Nome utente.</param>
+      <param name="tokenExpirationInMinutesFromNow">(Facoltativo) Intervallo di tempo in minuti fino alla scadenza del token di reimpostazione della password. Il valore predefinito è 1440 (24 ore).</param>
+      <exception cref="T:System.InvalidOperationException">Il metodo <see cref="M:WebMatrix.WebData.SimpleMembershipProvider.Initialize(System.String,System.Collections.Specialized.NameValueCollection)" /> non è stato chiamato.oppureIl metodo <see cref="Overload:WebMatrix.WebData.WebSecurity.InitializeDatabaseConnection" /> non è stato chiamato.oppureIl provider di appartenenze <see cref="T:WebMatrix.WebData.SimpleMembershipProvider" /> non è registrato nella configurazione del sito. Per ulteriori informazioni, contattare l'amministratore di sistema del sito.</exception>
+    </member>
+    <member name="M:WebMatrix.WebData.WebSecurity.GetCreateDate(System.String)">
+      <summary>Restituisce la data e l'ora di creazione dell'account di appartenenza specificato.</summary>
+      <returns>Data e ora di creazione dell'account di appartenenza oppure <see cref="F:System.DateTime.MinValue" /> se tale data non è disponibile.</returns>
+      <param name="userName">Nome utente dell'account di appartenenza.</param>
+      <exception cref="T:System.InvalidOperationException">Il metodo <see cref="M:WebMatrix.WebData.SimpleMembershipProvider.Initialize(System.String,System.Collections.Specialized.NameValueCollection)" /> non è stato chiamato.oppureIl metodo <see cref="Overload:WebMatrix.WebData.WebSecurity.InitializeDatabaseConnection" /> non è stato chiamato.oppureIl provider di appartenenze <see cref="T:WebMatrix.WebData.SimpleMembershipProvider" /> non è registrato nella configurazione del sito. Per ulteriori informazioni, contattare l'amministratore di sistema del sito.</exception>
+    </member>
+    <member name="M:WebMatrix.WebData.WebSecurity.GetLastPasswordFailureDate(System.String)">
+      <summary>Restituisce la data e l'ora dell'ultima volta in cui è stata immessa una password errata per l'account specificato.</summary>
+      <returns>Data e ora dell'ultima volta in cui è stata immessa una password errata per l'account corrente oppure <see cref="F:System.DateTime.MinValue" /> se per tale account non è stata immessa una password errata.</returns>
+      <param name="userName">Nome utente dell'account di appartenenza.</param>
+      <exception cref="T:System.InvalidOperationException">Il metodo <see cref="M:WebMatrix.WebData.SimpleMembershipProvider.Initialize(System.String,System.Collections.Specialized.NameValueCollection)" /> non è stato chiamato.oppureIl metodo <see cref="Overload:WebMatrix.WebData.WebSecurity.InitializeDatabaseConnection" /> non è stato chiamato.oppureIl provider di appartenenze <see cref="T:WebMatrix.WebData.SimpleMembershipProvider" /> non è registrato nella configurazione del sito. Per ulteriori informazioni, contattare l'amministratore di sistema del sito.</exception>
+    </member>
+    <member name="M:WebMatrix.WebData.WebSecurity.GetPasswordChangedDate(System.String)">
+      <summary>Restituisce la data e l'ora dell'ultima modifica apportata alla password per l'account di appartenenza specificato.</summary>
+      <returns>Data e ora dell'ultima modifica della password oppure <see cref="F:System.DateTime.MinValue" /> se per l'account corrente la password non è stata modificata.</returns>
+      <param name="userName">Nome utente dell'account.</param>
+      <exception cref="T:System.InvalidOperationException">Il metodo <see cref="M:WebMatrix.WebData.SimpleMembershipProvider.Initialize(System.String,System.Collections.Specialized.NameValueCollection)" /> non è stato chiamato.oppureIl metodo <see cref="Overload:WebMatrix.WebData.WebSecurity.InitializeDatabaseConnection" /> non è stato chiamato.oppureIl provider di appartenenze <see cref="T:WebMatrix.WebData.SimpleMembershipProvider" /> non è registrato nella configurazione del sito. Per ulteriori informazioni, contattare l'amministratore di sistema del sito.</exception>
+    </member>
+    <member name="M:WebMatrix.WebData.WebSecurity.GetPasswordFailuresSinceLastSuccess(System.String)">
+      <summary>Restituisce il numero di volte in cui è stata immessa una password errata per l'account specificato a partire dall'ultimo accesso corretto o dalla creazione dell'account di appartenenza.</summary>
+      <returns>Numero di tentativi di inserimento della password non riusciti per l'account specificato.</returns>
+      <param name="userName">Nome utente dell'account.</param>
+      <exception cref="T:System.InvalidOperationException">Il metodo <see cref="M:WebMatrix.WebData.SimpleMembershipProvider.Initialize(System.String,System.Collections.Specialized.NameValueCollection)" /> non è stato chiamato.oppureIl metodo <see cref="Overload:WebMatrix.WebData.WebSecurity.InitializeDatabaseConnection" /> non è stato chiamato.oppureIl provider di appartenenze <see cref="T:WebMatrix.WebData.SimpleMembershipProvider" /> non è registrato nella configurazione del sito. Per ulteriori informazioni, contattare l'amministratore di sistema del sito.</exception>
+    </member>
+    <member name="M:WebMatrix.WebData.WebSecurity.GetUserId(System.String)">
+      <summary>Restituisce l'ID di un utente in base al nome utente specificato.</summary>
+      <returns>ID utente.</returns>
+      <param name="userName">Nome utente.</param>
+      <exception cref="T:System.InvalidOperationException">Il metodo <see cref="M:WebMatrix.WebData.SimpleMembershipProvider.Initialize(System.String,System.Collections.Specialized.NameValueCollection)" /> non è stato chiamato.oppureIl metodo <see cref="Overload:WebMatrix.WebData.WebSecurity.InitializeDatabaseConnection" /> non è stato chiamato.oppureIl provider di appartenenze <see cref="T:WebMatrix.WebData.SimpleMembershipProvider" /> non è registrato nella configurazione del sito. Per ulteriori informazioni, contattare l'amministratore di sistema del sito.</exception>
+    </member>
+    <member name="M:WebMatrix.WebData.WebSecurity.GetUserIdFromPasswordResetToken(System.String)">
+      <summary>Restituisce un ID utente da un token di reimpostazione della password.</summary>
+      <returns>ID utente.</returns>
+      <param name="token">Token di reimpostazione della password.</param>
+      <exception cref="T:System.InvalidOperationException">Il metodo <see cref="M:WebMatrix.WebData.SimpleMembershipProvider.Initialize(System.String,System.Collections.Specialized.NameValueCollection)" /> non è stato chiamato.oppureIl metodo <see cref="Overload:WebMatrix.WebData.WebSecurity.InitializeDatabaseConnection" /> non è stato chiamato.oppureIl provider di appartenenze <see cref="T:WebMatrix.WebData.SimpleMembershipProvider" /> non è registrato nella configurazione del sito. Per ulteriori informazioni, contattare l'amministratore di sistema del sito.</exception>
+    </member>
+    <member name="P:WebMatrix.WebData.WebSecurity.HasUserId">
+      <summary>Ottiene un valore che indica se l'utente corrente possiede un ID utente.</summary>
+      <returns>true se l'utente possiede un ID utente. In caso contrario, false.</returns>
+    </member>
+    <member name="P:WebMatrix.WebData.WebSecurity.Initialized">
+      <summary>Ottiene un valore che indica se il metodo <see cref="M:WebMatrix.WebData.WebSecurity.InitializeDatabaseConnection(System.String,System.String,System.String,System.String,System.Boolean)" /> è stato chiamato.</summary>
+      <returns>true se il metodo di inizializzazione è stato chiamato. In caso contrario, false.</returns>
+    </member>
+    <member name="M:WebMatrix.WebData.WebSecurity.InitializeDatabaseConnection(System.String,System.String,System.String,System.String,System.Boolean)">
+      <summary>Inizializza il sistema di appartenenze tramite una connessione a un database contenente le informazioni utente e, facoltativamente, crea le tabelle delle appartenenze a meno che queste non esistano già.</summary>
+      <param name="connectionStringName">Nome della stringa di connessione per il database contenente le informazioni utente. Se si utilizza SQL Server Compact, può corrispondere al nome del file di database (file sdf) senza l'estensione sdf.</param>
+      <param name="userTableName">Nome della tabella di database contenente le informazioni sul profilo utente.</param>
+      <param name="userIdColumn">Nome della colonna di database che contiene gli ID utente. Questa colonna deve essere tipizzata come numero intero (int).</param>
+      <param name="userNameColumn">Nome della colonna di database che contiene i nomi utente. Questa colonna viene utilizzata per stabilire una corrispondenza tra i dati dei profili utente e quelli degli account di appartenenza.</param>
+      <param name="autoCreateTables">true per indicare che è necessario creare le tabelle dei profili utente e le tabelle delle appartenenze a meno che non esistano già, false per indicare che tali tabelle non devono essere create automaticamente. Anche se le tabelle delle appartenenze possono essere create automaticamente, il database deve essere già presente.</param>
+    </member>
+    <member name="M:WebMatrix.WebData.WebSecurity.InitializeDatabaseConnection(System.String,System.String,System.String,System.String,System.String,System.Boolean)">
+      <summary>Inizializza il sistema di appartenenze tramite una connessione a un database contenente le informazioni utente effettuata tramite il provider di appartenenze o di ruoli specificato e, facoltativamente, crea le tabelle delle appartenenze a meno che queste non esistano già.</summary>
+      <param name="connectionString">Nome della stringa di connessione per il database contenente le informazioni utente. Se si utilizza SQL Server Compact, può corrispondere al nome del file di database (file sdf) senza l'estensione sdf.</param>
+      <param name="providerName">Nome del provider di dati ADO.NET. Se si desidera utilizzare Microsoft SQL Server, si consiglia di utilizzare l'overload <see cref="M:WebMatrix.WebData.WebSecurity.InitializeDatabaseConnection(System.String,System.String,System.String,System.String,System.Boolean)" />.</param>
+      <param name="userTableName">Nome della tabella di database contenente le informazioni sul profilo utente.</param>
+      <param name="userIdColumn">Nome della colonna di database che contiene gli ID utente. Questa colonna deve essere tipizzata come numero intero (int).</param>
+      <param name="userNameColumn">Nome della colonna di database che contiene i nomi utente. Questa colonna viene utilizzata per stabilire una corrispondenza tra i dati dei profili utente e quelli degli account di appartenenza.</param>
+      <param name="autoCreateTables">true per indicare che è necessario creare automaticamente le tabelle dei profili utente e le tabelle delle appartenenze, false per indicare che tali tabelle non devono essere create automaticamente. Anche se le tabelle delle appartenenze possono essere create automaticamente, il database deve essere già presente.</param>
+    </member>
+    <member name="M:WebMatrix.WebData.WebSecurity.IsAccountLockedOut(System.String,System.Int32,System.Int32)">
+      <summary>Restituisce un valore che indica se l'account di appartenenza specificato è temporaneamente bloccato a causa di un numero eccessivo di tentativi di inserimento della password non riusciti entro il numero di secondi specificato.</summary>
+      <returns>true se l'account di appartenenza è bloccato. In caso contrario, false.</returns>
+      <param name="userName">Nome utente dell'account di appartenenza.</param>
+      <param name="allowedPasswordAttempts">Numero di tentativi di inserimento di password consentiti all'utente prima del blocco dell'account di appartenenza.</param>
+      <param name="intervalInSeconds">Numero di secondi oltre il quale un account utente viene bloccato se il numero di tentativi di inserimento della password supera il valore contenuto nel parametro <paramref name="allowedPasswordAttempts" />.</param>
+      <exception cref="T:System.InvalidOperationException">Il metodo <see cref="M:WebMatrix.WebData.SimpleMembershipProvider.Initialize(System.String,System.Collections.Specialized.NameValueCollection)" /> non è stato chiamato.oppureIl metodo <see cref="Overload:WebMatrix.WebData.WebSecurity.InitializeDatabaseConnection" /> non è stato chiamato.oppureIl provider di appartenenze <see cref="T:WebMatrix.WebData.SimpleMembershipProvider" /> non è registrato nella configurazione del sito. Per ulteriori informazioni, contattare l'amministratore di sistema del sito.</exception>
+    </member>
+    <member name="M:WebMatrix.WebData.WebSecurity.IsAccountLockedOut(System.String,System.Int32,System.TimeSpan)">
+      <summary>Restituisce un valore che indica se l'account di appartenenza specificato è temporaneamente bloccato a causa di un numero eccessivo di tentativi di inserimento della password non riusciti entro l'intervallo di tempo specificato.</summary>
+      <returns>true se l'account di appartenenza è bloccato. In caso contrario, false.</returns>
+      <param name="userName">Nome utente dell'account di appartenenza.</param>
+      <param name="allowedPasswordAttempts">Numero di tentativi di inserimento di password consentiti all'utente prima del blocco dell'account di appartenenza.</param>
+      <param name="interval">Numero di secondi oltre il quale un account utente viene bloccato se il numero di tentativi di inserimento della password supera il valore contenuto nel parametro <paramref name="allowedPasswordAttempts" />.</param>
+      <exception cref="T:System.InvalidOperationException">Il metodo <see cref="M:WebMatrix.WebData.SimpleMembershipProvider.Initialize(System.String,System.Collections.Specialized.NameValueCollection)" /> non è stato chiamato.oppureIl metodo <see cref="Overload:WebMatrix.WebData.WebSecurity.InitializeDatabaseConnection" /> non è stato chiamato.oppureIl provider di appartenenze <see cref="T:WebMatrix.WebData.SimpleMembershipProvider" /> non è registrato nella configurazione del sito. Per ulteriori informazioni, contattare l'amministratore di sistema del sito.</exception>
+    </member>
+    <member name="P:WebMatrix.WebData.WebSecurity.IsAuthenticated">
+      <summary>Ottiene lo stato di autenticazione dell'utente corrente.</summary>
+      <returns>true se l'utente corrente è confermato. In caso contrario, false. Il valore predefinito è false.</returns>
+    </member>
+    <member name="M:WebMatrix.WebData.WebSecurity.IsConfirmed(System.String)">
+      <summary>Restituisce un valore che indica se l'utente è stato confermato.</summary>
+      <returns>true se l'utente è confermato. In caso contrario, false.</returns>
+      <param name="userName">Nome utente.</param>
+    </member>
+    <member name="M:WebMatrix.WebData.WebSecurity.IsCurrentUser(System.String)">
+      <summary>Restituisce un valore che indica se il nome dell'utente connesso corrisponde al nome utente specificato.</summary>
+      <returns>true se il nome dell'utente connesso corrisponde a <paramref name="userName" />. In caso contrario, false.</returns>
+      <param name="userName">Nome utente con cui confrontare il nome dell'utente connesso.</param>
+      <exception cref="T:System.InvalidOperationException">Il metodo <see cref="M:WebMatrix.WebData.SimpleMembershipProvider.Initialize(System.String,System.Collections.Specialized.NameValueCollection)" /> non è stato chiamato.oppureIl metodo <see cref="Overload:WebMatrix.WebData.WebSecurity.InitializeDatabaseConnection" /> non è stato chiamato.oppureIl provider di appartenenze <see cref="T:WebMatrix.WebData.SimpleMembershipProvider" /> non è registrato nella configurazione del sito. Per ulteriori informazioni, contattare l'amministratore di sistema del sito.</exception>
+    </member>
+    <member name="M:WebMatrix.WebData.WebSecurity.Login(System.String,System.String,System.Boolean)">
+      <summary>Consente l'accesso dell'utente.</summary>
+      <returns>true se l'utente era connesso. In caso contrario, false. </returns>
+      <param name="userName">Nome utente.</param>
+      <param name="password">Password.</param>
+      <param name="persistCookie">(Facoltativo) true per specificare che il token di autenticazione nel cookie deve essere persistente oltre la sessione corrente. In caso contrario, false. Il valore predefinito è false.</param>
+      <exception cref="T:System.InvalidOperationException">Il metodo <see cref="M:WebMatrix.WebData.SimpleMembershipProvider.Initialize(System.String,System.Collections.Specialized.NameValueCollection)" /> non è stato chiamato.oppureIl metodo <see cref="Overload:WebMatrix.WebData.WebSecurity.InitializeDatabaseConnection" /> non è stato chiamato.oppureIl provider di appartenenze <see cref="T:WebMatrix.WebData.SimpleMembershipProvider" /> non è registrato nella configurazione del sito. Per ulteriori informazioni, contattare l'amministratore di sistema del sito.</exception>
+    </member>
+    <member name="M:WebMatrix.WebData.WebSecurity.Logout">
+      <summary>Disconnette l'utente.</summary>
+      <exception cref="T:System.InvalidOperationException">Il metodo <see cref="M:WebMatrix.WebData.SimpleMembershipProvider.Initialize(System.String,System.Collections.Specialized.NameValueCollection)" /> non è stato chiamato.oppureIl metodo <see cref="Overload:WebMatrix.WebData.WebSecurity.InitializeDatabaseConnection" /> non è stato chiamato.oppureIl provider di appartenenze <see cref="T:WebMatrix.WebData.SimpleMembershipProvider" /> non è registrato nella configurazione del sito. Per ulteriori informazioni, contattare l'amministratore di sistema del sito.</exception>
+    </member>
+    <member name="M:WebMatrix.WebData.WebSecurity.RequireAuthenticatedUser">
+      <summary>Se l'utente non è autenticato, imposta lo stato HTTP su 401 (Non autorizzato).</summary>
+    </member>
+    <member name="M:WebMatrix.WebData.WebSecurity.RequireRoles(System.String[])">
+      <summary>Se l'utente corrente non è contenuto in tutti i ruoli specificati, imposta lo stato HTTP su 401 (Non autorizzato).</summary>
+      <param name="roles">Ruoli da controllare. L'utente corrente deve essere contenuto in tutti i ruoli passati in questo parametro.</param>
+      <exception cref="T:System.InvalidOperationException">Il metodo <see cref="M:WebMatrix.WebData.SimpleMembershipProvider.Initialize(System.String,System.Collections.Specialized.NameValueCollection)" /> non è stato chiamato.oppureIl metodo <see cref="Overload:WebMatrix.WebData.WebSecurity.InitializeDatabaseConnection" /> non è stato chiamato.oppureIl provider di appartenenze <see cref="T:WebMatrix.WebData.SimpleMembershipProvider" /> non è registrato nella configurazione del sito. Per ulteriori informazioni, contattare l'amministratore di sistema del sito.</exception>
+    </member>
+    <member name="M:WebMatrix.WebData.WebSecurity.RequireUser(System.Int32)">
+      <summary>Se l'utente specificato non è connesso, imposta lo stato HTTP su 401 (Non autorizzato).</summary>
+      <param name="userId">ID dell'utente da confrontare.</param>
+      <exception cref="T:System.InvalidOperationException">Il metodo <see cref="M:WebMatrix.WebData.SimpleMembershipProvider.Initialize(System.String,System.Collections.Specialized.NameValueCollection)" /> non è stato chiamato.oppureIl metodo <see cref="Overload:WebMatrix.WebData.WebSecurity.InitializeDatabaseConnection" /> non è stato chiamato.oppureIl provider di appartenenze <see cref="T:WebMatrix.WebData.SimpleMembershipProvider" /> non è registrato nella configurazione del sito. Per ulteriori informazioni, contattare l'amministratore di sistema del sito.</exception>
+    </member>
+    <member name="M:WebMatrix.WebData.WebSecurity.RequireUser(System.String)">
+      <summary>Se il nome dell'utente corrente non corrisponde al nome utente specificato, imposta lo stato HTTP su 401 (Non autorizzato).</summary>
+      <param name="userName">Nome dell'utente da confrontare.</param>
+      <exception cref="T:System.InvalidOperationException">Il metodo <see cref="M:WebMatrix.WebData.SimpleMembershipProvider.Initialize(System.String,System.Collections.Specialized.NameValueCollection)" /> non è stato chiamato.oppureIl metodo <see cref="Overload:WebMatrix.WebData.WebSecurity.InitializeDatabaseConnection" /> non è stato chiamato.oppureIl provider di appartenenze <see cref="T:WebMatrix.WebData.SimpleMembershipProvider" /> non è registrato nella configurazione del sito. Per ulteriori informazioni, contattare l'amministratore di sistema del sito.</exception>
+    </member>
+    <member name="M:WebMatrix.WebData.WebSecurity.ResetPassword(System.String,System.String)">
+      <summary>Reimposta una password mediante un token di reimpostazione della password.</summary>
+      <returns>true se la password è stata modificata. In caso contrario, false.</returns>
+      <param name="passwordResetToken">Token di reimpostazione della password.</param>
+      <param name="newPassword">Nuova password.</param>
+      <exception cref="T:System.InvalidOperationException">Il metodo <see cref="M:WebMatrix.WebData.SimpleMembershipProvider.Initialize(System.String,System.Collections.Specialized.NameValueCollection)" /> non è stato chiamato.oppureIl metodo <see cref="Overload:WebMatrix.WebData.WebSecurity.InitializeDatabaseConnection" /> non è stato chiamato.oppureIl provider di appartenenze <see cref="T:WebMatrix.WebData.SimpleMembershipProvider" /> non è registrato nella configurazione del sito. Per ulteriori informazioni, contattare l'amministratore di sistema del sito.</exception>
+    </member>
+    <member name="M:WebMatrix.WebData.WebSecurity.UserExists(System.String)">
+      <summary>Restituisce un valore che indica se nel database delle appartenenze esiste l'utente specificato.</summary>
+      <returns>true se nella tabella dei profili utente è presente <paramref name="username" />. In caso contrario, false. </returns>
+      <param name="userName">Nome utente.</param>
+      <exception cref="T:System.InvalidOperationException">Il metodo <see cref="M:WebMatrix.WebData.SimpleMembershipProvider.Initialize(System.String,System.Collections.Specialized.NameValueCollection)" /> non è stato chiamato.oppureIl metodo <see cref="Overload:WebMatrix.WebData.WebSecurity.InitializeDatabaseConnection" /> non è stato chiamato.oppureIl provider di appartenenze <see cref="T:WebMatrix.WebData.SimpleMembershipProvider" /> non è registrato nella configurazione del sito. Per ulteriori informazioni, contattare l'amministratore di sistema del sito.</exception>
+    </member>
+  </members>
+</doc>

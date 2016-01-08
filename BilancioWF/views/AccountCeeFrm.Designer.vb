@@ -39,6 +39,7 @@ Partial Class AccountCeeFrm
         Me.ButtonSave = New System.Windows.Forms.Button()
         Me.ButtonDel = New System.Windows.Forms.Button()
         Me.ButtonSearch = New System.Windows.Forms.Button()
+        Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
         Me.SuspendLayout()
         '
         'TreeView1
@@ -197,11 +198,20 @@ Partial Class AccountCeeFrm
         Me.ButtonSearch.Text = "Cerca"
         Me.ButtonSearch.UseVisualStyleBackColor = True
         '
+        'StatusStrip1
+        '
+        Me.StatusStrip1.Location = New System.Drawing.Point(0, 459)
+        Me.StatusStrip1.Name = "StatusStrip1"
+        Me.StatusStrip1.Size = New System.Drawing.Size(779, 22)
+        Me.StatusStrip1.TabIndex = 13
+        Me.StatusStrip1.Text = "StatusStrip1"
+        '
         'AccountCeeFrm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(780, 453)
+        Me.ClientSize = New System.Drawing.Size(779, 481)
+        Me.Controls.Add(Me.StatusStrip1)
         Me.Controls.Add(Me.ButtonSearch)
         Me.Controls.Add(Me.ButtonDel)
         Me.Controls.Add(Me.ButtonSave)
@@ -242,4 +252,5 @@ Partial Class AccountCeeFrm
     Friend WithEvents ButtonSave As System.Windows.Forms.Button
     Friend WithEvents ButtonDel As System.Windows.Forms.Button
     Friend WithEvents ButtonSearch As System.Windows.Forms.Button
+    Friend WithEvents StatusStrip1 As System.Windows.Forms.StatusStrip
 End Class

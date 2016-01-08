@@ -8,29 +8,36 @@ Public Class AccountCeeFrm
 
     Dim allNodes As Dictionary(Of Integer, AccountCee)
     Private Property currentNode As AccountCee
+    Private treeView1CurrentNode As TreeNode
 
     Private controller As AccountCeeController = New AccountCeeController()
 
-    Private Sub ContoCee_Disposed(sender As Object, e As EventArgs) Handles Me.Disposed
+    Private Enum saveType As Integer
+        NONE = 0
+        INSERT = 1
+        UPDATE_NO_PARENT = 2
+        UPDATE_PARENT = 3
+        REMOVE = 4
+    End Enum
 
+    Private Sub AccountCeeFrm_Disposed(sender As Object, e As EventArgs) Handles Me.Disposed
         controller.dispose()
-
     End Sub
 
-    Private Sub ContoCee_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-
-        allNodes = controller.loadAall(False)
+    Private Sub AccountCeeFrm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        allNodes = AccountCeeController.loadAll(False)
         populateTree()
-        PopulateCombo(ComboBoxParent, controller.getSummary(allNodes.Values), "id", "codeName")
+
+        ComboBoxParent.Tag = True
+        PopulateCombo(ComboBoxParent, AccountCeeController.getSummary(allNodes.Values), "id", "codeName")
+        ComboBoxParent.Tag = False
 
         TreeView1.ExpandAll()
 
     End Sub
 
     Private Sub populateTree()
-
         allNodes.Values.ToList.ForEach(Sub(oneRow) AddNode(oneRow))
-
     End Sub
 
     Private Sub AddNode(oneRow As AccountCee)
@@ -53,8 +60,9 @@ Public Class AccountCeeFrm
 
     Private Sub TreeView1_AfterSelect(sender As Object, e As TreeViewEventArgs) Handles TreeView1.AfterSelect
 
+        treeView1CurrentNode = TreeView1.SelectedNode
         Try
-            Dim key As Integer = Integer.Parse(e.Node.Name)
+            Dim key As Integer = Integer.Parse(treeView1CurrentNode.Name)
             currentNode = allNodes.Item(key)
 
             TextBoxCode.Text = currentNode.Code
@@ -129,6 +137,11 @@ Public Class AccountCeeFrm
     End Function
 
     Private Sub ComboBoxParent_SelectedValueChanged(sender As Object, e As EventArgs) Handles ComboBoxParent.SelectedValueChanged
+
+        If (ComboBoxParent.Tag = True) Then
+            Return
+        End If
+
         If (IsNothing(currentNode) OrElse currentNode.isLeaf) Then
             Return
         End If
@@ -151,71 +164,92 @@ Public Class AccountCeeFrm
 
     Private Sub ButtonSave_Click(sender As Object, e As EventArgs) Handles ButtonSave.Click
 
+        Dim newParent As AccountCee = allNodes.Item(ComboBoxParent.SelectedValue)
+
+        Dim st As saveType = saveType.NONE
+
+        If (IsNothing(currentNode.ID) OrElse currentNode.ID = 0) Then
+            st = saveType.INSERT 'nuovo inserimento
+        ElseIf (currentNode.ParentID <> newParent.ID) Then
+            st = saveType.UPDATE_PARENT     'update con variazione parent
+        Else
+            st = saveType.UPDATE_NO_PARENT  'update senza variazione parent
+        End If
+
 
         If (Not assigneCurrent()) Then
-            Return
+            Return  'Almeno una validazione non rispettata
         End If
 
-        Dim newRec As Boolean = IsNothing(currentNode.ID) OrElse currentNode.ID = 0
+        'ButtonSave.Enabled = False
         controller.save(currentNode)
-        If (newRec) Then
-            Dim n As AccountCee = controller.getFromValue(currentNode.Code)
-            If (Not IsNothing(n)) Then
-                allNodes.Add(n.ID, n)
-                AddNode(n)
-                '                TreeView1.SelectedNode.ExpandAll()
-                TreeView1.Refresh()
-            End If
+
+        If (st = saveType.INSERT) Then
+            allNodes.Add(currentNode.ID, currentNode)
+            AddNode(currentNode)  'aggiunge il nuovo nodo nella treeView
+        ElseIf (st = saveType.UPDATE_PARENT) Then
+            Dim tnp As TreeNode = TreeView1.Nodes.Find(newParent.ID.ToString, True).First()
+            MoveTreeNode(treeView1CurrentNode, tnp)
+        ElseIf (st = saveType.UPDATE_NO_PARENT) Then
+            treeView1CurrentNode.Text = currentNode.CodeName
+            'MoveTreeNode(treeView1CurrentNode, tnp)
         End If
+
+        treeView1CurrentNode = Nothing
+        TreeView1.SelectedNode = Nothing
+
+    End Sub
+
+    Private Sub MoveTreeNode(ByVal NodeToMove As TreeNode, ByVal NewParent As TreeNode)
+        NodeToMove.Remove()
+        NewParent.Nodes.Add(NodeToMove)
     End Sub
 
     Private Sub ButtonDel_Click(sender As Object, e As EventArgs) Handles ButtonDel.Click
 
-        controller.remove(currentNode.ID)
+        If (Not controller.remove(currentNode.ID)) Then
+            MsgBox("conto non eliminato")
+            Return
+        End If
+
         If (allNodes.ContainsKey(currentNode.ID)) Then
+
             allNodes.Remove(currentNode.ID)
-
-            TreeView1.Nodes.RemoveByKey(currentNode.ID)
-            'TreeView1.Refresh()
-            'treeView1.SelectedNode.Remove();
-
-
+            TreeView1.Nodes.Remove(treeView1CurrentNode)
         End If
 
     End Sub
 
     Private Sub ButtonNew_Click(sender As Object, e As EventArgs) Handles ButtonNew.Click
 
+        If (Not IsNothing(currentNode) AndAlso currentNode.ParentID > 0) Then
+            TextBoxSeqNo.Text = controller.nextSeqNo(currentNode.ParentID)
+        End If
+
         currentNode = New AccountCee()
+        ButtonDel.Enabled = False
 
     End Sub
 
     Private Function validateErrors() As IEnumerable(Of String)
-        Dim errors = New List(Of String)
 
-        If (String.IsNullOrWhiteSpace(TextBoxCode.Text)) Then
-            errors.Add("Il codice (univoco) è necessario")
-        ElseIf (TextBoxCode.Text.Trim().Length = 0 Or TextBoxCode.Text.Trim().Length > 20) Then
-            errors.Add("Il codice deve essere di almeno 1 carattere e massimo 20.")
+
+        Dim id As Integer = 0
+        If (Not IsNothing(currentNode)) Then
+            id = currentNode.ID
         End If
 
-        If (TextBoxName.Text.Trim().Length < 3 Or TextBoxName.Text.Trim().Length > 60) Then
-            errors.Add("Il nome deve essere di almeno 3 caratteri e massimo 60.")
-        End If
+        Dim errors As List(Of String) = controller.validateErrors(TextBoxCode.Text, TextBoxName.Text, id)
 
         If (IsNothing(ComboBoxParent.SelectedValue)) Then
             errors.Add("Il padre è necessario")
         End If
 
-        'If (controller.codeExist(currentNode.ID, TextBoxCode.Text)) Then
-        '    errors.Add("codice già esistente")
-        'End If
-
         Return errors
 
     End Function
 
-
+    'assegna oggetto dalla view
     Private Function assigneCurrent() As Boolean
 
         Dim errors = validateErrors()
@@ -235,10 +269,10 @@ Public Class AccountCeeFrm
         Dim newParent As AccountCee = allNodes.Item(ComboBoxParent.SelectedValue)
 
         If (IsNothing(currentNode.Parent)) Then
-            newParent.Sons.Add(currentNode)
+            newParent.Sons.Add(currentNode) 'nuovo inserimento
         ElseIf (currentNode.ParentID <> newParent.ID) Then
             currentNode.Parent.Sons.Remove(currentNode)
-            newParent.Sons.Add(currentNode)
+            newParent.Sons.Add(currentNode) 'variazione parent
         End If
 
         currentNode.ParentID = newParent.ID
@@ -249,6 +283,9 @@ Public Class AccountCeeFrm
     End Function
 
     Private Sub TextBoxCode_LostFocus(sender As Object, e As EventArgs) Handles TextBoxCode.LostFocus
+        If (IsNothing(currentNode)) Then
+            Return
+        End If
         If (currentNode.ID > 0 AndAlso TextBoxCode.Text = currentNode.Code) Then
             Return
         End If
@@ -330,7 +367,6 @@ Public Class AccountCeeFrm
     End Sub
 
 #End Region
-
 
 
 End Class

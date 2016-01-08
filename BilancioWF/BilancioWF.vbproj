@@ -77,12 +77,30 @@
       <DependentUpon>Bilancio.vb</DependentUpon>
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Controllers\AccountChartController.vb" />
+    <Compile Include="Controllers\AvisController.vb" />
+    <Compile Include="Controllers\ControllerAbstract.vb" />
+    <Compile Include="Controllers\DocumentController.vb" />
+    <Compile Include="Controllers\DocumentTypeController.vb" />
+    <Compile Include="Controllers\ReportController.vb" />
+    <Compile Include="My Project\Resources.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Search.Designer.vb">
+      <DependentUpon>Search.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Search.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="SearchParameter.Designer.vb">
       <DependentUpon>SearchParameter.vb</DependentUpon>
     </Compile>
     <Compile Include="SearchParameter.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="ViewModels\CodeName.vb" />
     <Compile Include="views\AccountCeeFrm.Designer.vb">
       <DependentUpon>AccountCeeFrm.vb</DependentUpon>
     </Compile>
@@ -103,11 +121,6 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Application.myapp</DependentUpon>
     </Compile>
-    <Compile Include="My Project\Resources.Designer.vb">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
     <Compile Include="My Project\Settings.Designer.vb">
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
@@ -116,10 +129,61 @@
     <Compile Include="ViewModels\CreditDebit.vb" />
     <Compile Include="ViewModels\CreditDebitAccount.vb" />
     <Compile Include="ViewModels\DocumentTot.vb" />
+    <Compile Include="views\AccountChartFrm.Designer.vb">
+      <DependentUpon>AccountChartFrm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="views\AccountChartFrm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="views\AvisFrm.Designer.vb">
+      <DependentUpon>AvisFrm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="views\AvisFrm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="views\Balance.Designer.vb">
+      <DependentUpon>Balance.vb</DependentUpon>
+    </Compile>
+    <Compile Include="views\Balance.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="views\DocumentFrm.Designer.vb">
+      <DependentUpon>DocumentFrm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="views\DocumentFrm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="views\DocumentFrmExample.Designer.vb">
+      <DependentUpon>DocumentFrmExample.vb</DependentUpon>
+    </Compile>
+    <Compile Include="views\DocumentFrmExample.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="views\DocumentSearchFrm.Designer.vb">
+      <DependentUpon>DocumentSearchFrm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="views\DocumentSearchFrm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="views\DocumentTypeFrm.Designer.vb">
+      <DependentUpon>DocumentTypeFrm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="views\DocumentTypeFrm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="views\ReportFrm.Designer.vb">
+      <DependentUpon>ReportFrm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="views\ReportFrm.vb">
+      <SubType>Form</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Bilancio.resx">
       <DependentUpon>Bilancio.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Search.resx">
+      <DependentUpon>Search.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SearchParameter.resx">
       <DependentUpon>SearchParameter.vb</DependentUpon>
@@ -129,9 +193,33 @@
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="views\AccountChartFrm.resx">
+      <DependentUpon>AccountChartFrm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="views\AvisFrm.resx">
+      <DependentUpon>AvisFrm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="views\Balance.resx">
+      <DependentUpon>Balance.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="views\DocumentFrm.resx">
+      <DependentUpon>DocumentFrm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="views\DocumentFrmExample.resx">
+      <DependentUpon>DocumentFrmExample.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="views\DocumentSearchFrm.resx">
+      <DependentUpon>DocumentSearchFrm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="views\DocumentTypeFrm.resx">
+      <DependentUpon>DocumentTypeFrm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="views\ReportFrm.resx">
+      <DependentUpon>ReportFrm.vb</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -147,6 +235,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup />
+  <ItemGroup>
+    <Content Include="Resources\CercaLente.png" />
+    <None Include="Resources\pellicano5.jpg" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

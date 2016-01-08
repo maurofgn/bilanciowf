@@ -39,7 +39,7 @@ Namespace Models
         '<ForeignKey("DocumentType_ID")>
         Public Overridable Property documentType As DocumentType
 
-        Public Overridable Property documentRows As ICollection(Of DocumentRow)
+        Public Overridable Property documentRows As List(Of DocumentRow) = New List(Of DocumentRow)
 
         Public ReadOnly Property totalInfo() As DocumentTot
             Get
@@ -47,6 +47,12 @@ Namespace Models
             End Get
 
         End Property
+
+        Public Function getRow(rowId As Integer) As DocumentRow
+
+            Return documentRows.Find(Function(a) a.ID = rowId)
+
+        End Function
 
     End Class
 

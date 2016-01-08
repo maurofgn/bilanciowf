@@ -29,6 +29,8 @@ Partial Class Bilancio
         Me.TipoDocumentoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.AvisToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ReportToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.BilancioToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ExitToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
         Me.ToolStripStatusLabel1 = New System.Windows.Forms.ToolStripStatusLabel()
         Me.MenuStrip1.SuspendLayout()
@@ -37,7 +39,7 @@ Partial Class Bilancio
         '
         'MenuStrip1
         '
-        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem1, Me.ContoCEEToolStripMenuItem, Me.ContoPCToolStripMenuItem, Me.TipoDocumentoToolStripMenuItem, Me.AvisToolStripMenuItem, Me.ReportToolStripMenuItem})
+        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem1, Me.ContoCEEToolStripMenuItem, Me.ContoPCToolStripMenuItem, Me.TipoDocumentoToolStripMenuItem, Me.AvisToolStripMenuItem, Me.ReportToolStripMenuItem, Me.ExitToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.Size = New System.Drawing.Size(1091, 24)
@@ -76,9 +78,22 @@ Partial Class Bilancio
         '
         'ReportToolStripMenuItem
         '
+        Me.ReportToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BilancioToolStripMenuItem})
         Me.ReportToolStripMenuItem.Name = "ReportToolStripMenuItem"
         Me.ReportToolStripMenuItem.Size = New System.Drawing.Size(54, 20)
         Me.ReportToolStripMenuItem.Text = "Report"
+        '
+        'BilancioToolStripMenuItem
+        '
+        Me.BilancioToolStripMenuItem.Name = "BilancioToolStripMenuItem"
+        Me.BilancioToolStripMenuItem.Size = New System.Drawing.Size(116, 22)
+        Me.BilancioToolStripMenuItem.Text = "Bilancio"
+        '
+        'ExitToolStripMenuItem
+        '
+        Me.ExitToolStripMenuItem.Name = "ExitToolStripMenuItem"
+        Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(37, 20)
+        Me.ExitToolStripMenuItem.Text = "Exit"
         '
         'StatusStrip1
         '
@@ -122,5 +137,7 @@ Partial Class Bilancio
     Friend WithEvents ReportToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents StatusStrip1 As System.Windows.Forms.StatusStrip
     Friend WithEvents ToolStripStatusLabel1 As System.Windows.Forms.ToolStripStatusLabel
+    Friend WithEvents ExitToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents BilancioToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
 
 End Class

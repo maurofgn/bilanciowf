@@ -17,34 +17,37 @@ Namespace Models
 
 
     Public Class AccountCee
-        Dim _Active As Boolean = True
+        Inherits CodeName
+
         Dim _SeqNo As Integer = 0
         Dim _creditDebit As CreditDebit
 
-        Public Property ID As Integer
+        'Public Shared VOID As AccountCee = New AccountCee() With {.ID = 0, .Code = "-", .Name = "---", .NodeType = Models.NodeType.ALTRO, .Active = True}
 
-        '<Required>
-        '<StringLength(20, MinimumLength:=1, ErrorMessage:="{0} deve essere di almeno {2} caratteri e massimo {1}.")>
-        '<Display(Name:="Codice")>
-        '<Index("codeIndex", IsUnique:=True)>
-        Public Property Code As String
+        'Public Property ID As Integer
 
-        '<Required>
-        '<StringLength(60, MinimumLength:=3, ErrorMessage:="{0} deve essere di almeno {2} caratteri e massimo {1}.")>
-        '<Display(Name:="Descrizione")>
-        Public Property Name As String
+        ''<Required>
+        ''<StringLength(20, MinimumLength:=1, ErrorMessage:="{0} deve essere di almeno {2} caratteri e massimo {1}.")>
+        ''<Display(Name:="Codice")>
+        ''<Index("codeIndex", IsUnique:=True)>
+        'Public Property Code As String
+
+        ''<Required>
+        ''<StringLength(60, MinimumLength:=3, ErrorMessage:="{0} deve essere di almeno {2} caratteri e massimo {1}.")>
+        ''<Display(Name:="Descrizione")>
+        'Public Property Name As String
 
         '<Display(Name:="Attivo")>
-        Public Property Active As Boolean
-            Get
-                Return _Active
-            End Get
+        'Public Property Active As Boolean
+        '    Get
+        '        Return _Active
+        '    End Get
 
-            Set(ByVal Value As Boolean)
-                _Active = Value
-            End Set
+        '    Set(ByVal Value As Boolean)
+        '        _Active = Value
+        '    End Set
 
-        End Property
+        'End Property
 
         '<Required>
         '<Display(Name:="Nr. Sequenza")>
@@ -85,13 +88,6 @@ Namespace Models
             Return Name.ToString()
         End Function
 
-        '<Display(Name:="[Codice]Nome")>
-        Public ReadOnly Property CodeName() As String
-            Get
-                Return String.Format("[{0}]{1}", Code, Name)
-            End Get
-
-        End Property
 
         Public ReadOnly Property creditDebit As CreditDebit
             Get
@@ -191,7 +187,10 @@ Namespace Models
             _creditDebit = New CreditDebit(year, Debit)
 
             'accumulo dei valori dei conti (AccountChart) appartenenti a questo conto cee
-            AccountCharts.ToList().ForEach(Sub(a) add(year, a.calculateCreditDebit(year)))
+            AccountCharts.ToList().ForEach(Sub(a)
+
+                                               add(year, a.calculateCreditDebit(year))
+                                           End Sub)
 
             'If (Not IsNothing(Parent) AndAlso Not _creditDebit.isEmpty()) Then
             '    'log.info "${this.toString()} ${parent.toString()}"
@@ -219,7 +218,6 @@ Namespace Models
             End If
             _creditDebit.add(cd)
         End Sub
-
 
         Private Function isLastBrother() As Boolean
             Return IsNothing(Parent) OrElse Parent.Sons.Last.ID = Me.ID
@@ -254,6 +252,29 @@ Namespace Models
 
                                                         End If
                                                     End Sub
+            traverse(Me)
+
+            Return retValue
+
+        End Function
+
+
+        Public Function getSons() As List(Of AccountCee)
+
+            Dim retValue As List(Of AccountCee) = New List(Of AccountCee)
+
+            Dim traverse As Action(Of AccountCee) = Sub(node As AccountCee)
+                                                        If (Not IsNothing(node)) Then
+                                                            If (node.isLeaf AndAlso Not node.Summary) Then
+                                                                retValue.Add(node)
+                                                            Else
+                                                                If (Not node.isLeaf) Then
+                                                                    node.Sons.OrderBy(Function(a) a.SeqNo).ThenBy(Function(a) a.Code).ToList.ForEach(Sub(s) traverse(s))
+                                                                End If
+                                                            End If
+                                                        End If
+                                                    End Sub
+
             traverse(Me)
 
             Return retValue
